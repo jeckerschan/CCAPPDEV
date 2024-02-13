@@ -68,5 +68,12 @@ a {
 }
 
 a:hover {
-    color: #06eb19; /* Change to the desired color on hover */
+    color: #bce9c0; /* Change to the desired color on hover */
+}
+
+label {
+
+    color: #6fff93;
+    font-size: 15px;
+
 }
