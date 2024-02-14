@@ -28,6 +28,7 @@
 		display: flex;
 		margin-top: 5px; 
 		align-items: right;
+		display: flex;
 	}
 	.header-search{ justify-content: right; }
 	
@@ -45,6 +46,7 @@
 		width: 50px;
 		height: 50px;
 		margin-right: 10px;
+		display: flex;
 	}
 	
 	.header-profile{ padding-right: 30px; }
@@ -54,55 +56,69 @@
 
 	/* Header layout */
 	
-	
-	.main-area{ 
-	    height: 1200px;
-		margin-top: 75px;
-	}
     .menu{ 
         width: 25%; 
+		padding-top: 75px;
      }
-    .posts{ width: 50%;}
-    .friends{ 
-        width: 25%;
-        padding-right: 20px;
-		padding-top: 100px;
 
-    }
-    .friends > .bounded-box, .posts > .bounded-box { 
-        padding-top: 8px;
-    }
-
-    /* For the box items with rounded images*/
-	.box-parent{
-	    display: flex;
-	    flex-direction: column;
+	 .container {
+		background-color: #006937;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		padding: 30px;
+		width: 50%;
+		height: 100%;
+		margin: 0 auto; 
+		margin-top: 75px;
 	}
-	.box-item{
-	    width: 100%;
-	    display: flex;
-	    align-items: center;
-	    justify-content: left;
-	    margin-top: 8px;
-	    margin-bottom: 8px;
-	    margin-left: 8px;
+	.post{
+		background-color: rgb(255, 255, 255);
+		color:#000000;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		padding: 30px;
+		width: 300px;
+		margin: 0 auto; 
+		margin-top: 10px;
+		
 	}
-	.box-item > img{
-	    border-radius: 100%;
-	    width: 50px;
-	    height: 50px;
-	    margin-right: 15px;
-	}
-	.box-item > strong{ font-size: 16px; }
+	.comments{
+		background-color: rgba(58, 55, 55, 0.205);
+		color:#000000;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		padding: 30px;
+		width: 250px;
+		margin: 0 auto; 
+		margin-top: 20px;
+		
 	
-	/* For the bounded box area */
-	.bounded-box{ padding: 2%; }
-	.bounded-box-inner{
-	    padding: 2%;
-	    border: 1px solid DimGray;
-	    border-radius: 2%;
 	}
-	.inner-header{ text-align: center; font-size: 32px; }
-	.inner-image { width: 100%; }
-	.inner-image > img{ width: 100%; }
-	.inner-like > img{ width: 50px; height: 50px; }
+	h2 {
+		text-align: center;
+		color: white;
+	}
+	
+	h3 {
+		text-align: center;
+		color: black;
+		font-weight: bold;
+	}
+	a {
+		color: #f7f7f7; /* Change to the desired color */
+		text-decoration: none; /* Remove underline */
+	}
+	
+	a:hover {
+		color: #bce9c0; /* Change to the desired color on hover */
+	}
+	
+	label {
+	
+		color: #6fff93;
+		font-size: 15px;
+	
+	}
+    .posts{ width: 50%;}
+
+    
