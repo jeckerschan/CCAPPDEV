@@ -56,13 +56,14 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 500px;
-    height: 100%;
+    height: auto;
     margin: 0 auto; 
     margin-top: 75px;
 }
 h2 {
     text-align: center;
     color: white;
+    padding-top: 60px;
 }
 
 h3 {
