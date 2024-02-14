@@ -1,5 +1,18 @@
 
 	/* General layout */
+	body {
+		font-family: Roboto, sans-serif;
+		/*background-color: #dbdbd3;*/
+		margin: 0;
+		padding: 0;
+		display: flex;
+		background-image:url(background.png);
+		background-size: cover;
+		background-position: center;
+		justify-content: center;
+		align-items: center;
+	
+	}
 	.parent-row{ display: flex; }
 	.banner {
 		position: fixed;
@@ -11,52 +24,55 @@
 		width: 100%;
 		max-height: 100px;
 	}
+	.header-search{
+		display: flex;
+		margin-top: 5px; 
+		align-items: right;
+	}
+	.header-search{ justify-content: right; }
 	
-	/* Header layout */
-	.header{ 
-	    display: flex; 
-	    padding-bottom: 10px;
-	    border-bottom: 1px solid DimGray;
-	}
-	.header-logo, .header-search, .header-profile{
-	    display: flex;
-		width: 33%;
-	    margin-top: 5px; 
+	.box-item{
+		width: 100%;
+		display: flex;
 		align-items: center;
+		justify-content: left;
+		margin-top: 8px;
+		margin-bottom: 8px;
+		margin-left: 8px;
 	}
-	.header-logo > img { 
-	    max-width: 100px; 
-	    padding-left: 10px;
-	    border-radius: 50%;
+	.box-item > img{
+		border-radius: 100%;
+		width: 50px;
+		height: 50px;
+		margin-right: 10px;
 	}
-	.header-search{ justify-content: center; }
-	#search-field{ width: 200px; }
+	
 	.header-profile{ padding-right: 30px; }
-	.header-profile > div.box-item{ 
-        justify-content: right;
-	}
+		.header-profile > div.box-item{ 
+			justify-content: right;
+		}
+
+	/* Header layout */
+	
 	
 	.main-area{ 
 	    height: 1200px;
+		margin-top: 75px;
 	}
     .menu{ 
         width: 25%; 
-        background-color: HoneyDew;
-        border-right: 1px solid DimGray;
      }
-    .posts{ width: 50%; background-color: OldLace;}
+    .posts{ width: 50%;}
     .friends{ 
         width: 25%;
         padding-right: 20px;
-        background-color: OldLace;
+		padding-top: 100px;
+
     }
     .friends > .bounded-box, .posts > .bounded-box { 
         padding-top: 8px;
     }
-    .white-bg{ 
-        background-color: white;
-    }
-    
+
     /* For the box items with rounded images*/
 	.box-parent{
 	    display: flex;
