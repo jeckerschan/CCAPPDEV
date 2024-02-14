@@ -1,15 +1,16 @@
 
 	/* General layout */
-	body{ 
-		margin: 0px; 
-	}
-	
-	.body-parent{
-		display: flex;
-		flex-direction: column;
-	}
 	.parent-row{ display: flex; }
-	
+	.banner {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		
+	}
+	.banner img {
+		width: 100%;
+		max-height: 100px;
+	}
 	
 	/* Header layout */
 	.header{ 
