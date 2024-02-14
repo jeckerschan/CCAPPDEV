@@ -1,0 +1,91 @@
+
+	/* General layout */
+	body{ 
+		margin: 0px; 
+	}
+	
+	.body-parent{
+		display: flex;
+		flex-direction: column;
+	}
+	.parent-row{ display: flex; }
+	
+	
+	/* Header layout */
+	.header{ 
+	    display: flex; 
+	    padding-bottom: 10px;
+	    border-bottom: 1px solid DimGray;
+	}
+	.header-logo, .header-search, .header-profile{
+	    display: flex;
+		width: 33%;
+	    margin-top: 5px; 
+		align-items: center;
+	}
+	.header-logo > img { 
+	    max-width: 100px; 
+	    padding-left: 10px;
+	    border-radius: 50%;
+	}
+	.header-search{ justify-content: center; }
+	#search-field{ width: 200px; }
+	.header-profile{ padding-right: 30px; }
+	.header-profile > div.box-item{ 
+        justify-content: right;
+	}
+	
+	.main-area{ 
+	    height: 1200px;
+	}
+    .menu{ 
+        width: 25%; 
+        background-color: HoneyDew;
+        border-right: 1px solid DimGray;
+     }
+    .posts{ width: 50%; background-color: OldLace;}
+    .friends{ 
+        width: 25%;
+        padding-right: 20px;
+        background-color: OldLace;
+    }
+    .friends > .bounded-box, .posts > .bounded-box { 
+        padding-top: 8px;
+    }
+    .white-bg{ 
+        background-color: white;
+    }
+    
+    /* For the box items with rounded images*/
+	.box-parent{
+	    display: flex;
+	    flex-direction: column;
+	}
+	.box-item{
+	    width: 100%;
+	    display: flex;
+	    align-items: center;
+	    justify-content: left;
+	    margin-top: 8px;
+	    margin-bottom: 8px;
+	    margin-left: 8px;
+	}
+	.box-item > img{
+	    border-radius: 100%;
+	    width: 50px;
+	    height: 50px;
+	    margin-right: 15px;
+	}
+	.box-item > strong{ font-size: 16px; }
+	
+	/* For the bounded box area */
+	.bounded-box{ padding: 2%; }
+	.bounded-box-inner{
+	    padding: 2%;
+	    border: 1px solid DimGray;
+	    border-radius: 2%;
+	}
+	.inner-header{ text-align: center; font-size: 32px; }
+	.inner-image { width: 100%; }
+	.inner-image > img{ width: 100%; }
+	.inner-like > img{ width: 50px; height: 50px; }
