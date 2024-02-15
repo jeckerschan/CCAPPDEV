@@ -1,0 +1,77 @@
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('background.png'); /* Add background image */
+    background-size: cover;
+    background-position: center;
+    background-color: #000000; /* Fallback color in case the image fails to load */
+}
+
+.logout-box {
+    background-color: #35793e;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+}
+.banner img {
+    width: 100%;
+    max-height: 100px;
+}
+h2 {
+    margin-top: 0;
+    color: white; /* Set text color to white */
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #0d4b0b;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-yes {
+    background-color: #4a9e43;
+    color:white;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+    color:white;
+}
+
+.btn-yes:hover{
+
+    background-color:#77be71;
+}
+
+.btn-cancel:hover{
+    background-color:rgb(216, 5, 5)
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+}
+
