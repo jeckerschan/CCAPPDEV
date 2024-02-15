@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Social Media 2 page</title>
 	<link rel="stylesheet" type="text/css" href="Profile.css">
+
 </head>
 <body>
 	<div class="banner">
@@ -29,7 +31,14 @@
 		
 		<h2 >Your Profile</h2>
 		<div class="post">
-			<button class="edit">Edit Post</button>
+			<button class="edit" onclick="openForm()">Edit Post</button>
+			<div class="popup">
+				<form action="/action_page.php" class="form-container">
+				
+					<button type="submit" class="btn">Login</button>
+					<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+				  </form>
+			</div>
 			<a href="Post.html"><h3>Sinigang</h3></a>
 			<p>Sinigang is a sour soup native to the Philippines. This recipe uses pork as the main ingredient. Other proteins and seafood can also be used. Beef, shrimp, fish are commonly used to cook sinigang</p>
 			<div class="actions">
@@ -49,7 +58,14 @@
 			<button class="comment">Comment</button>
 		</div>
 		<div class="post">
-			<button class="edit">Edit Post</button>
+			<button class="edit" onclick="openForm()">Edit Post</button>
+			<div class="popup">
+				<form action="/action_page.php" class="form-container">
+				
+					<button type="submit" class="btn">Login</button>
+					<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+				  </form>
+			</div>
 			<a href="Post.html"><h3 >How to Cook Adobo</h3></a>
 			<p>Heat the oil in a cooking pot.
 				Add the garlic. Cook until it starts to turn light brown.
@@ -82,5 +98,14 @@
 
 	</div>
 </div>
+<script>
+	function openForm() {
+	  document.getElementById("myForm").style.display = "block";
+	}
+	
+	function closeForm() {
+	  document.getElementById("myForm").style.display = "none";
+	}
+	</script>
 </body>
 </html> 
