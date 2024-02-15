@@ -29,6 +29,11 @@ body {
 }
 .header-search{ justify-content: right; }
 
+.logout-link{
+    float:right;
+   
+}
+
 .box-item{
     width: 100%;
     display: flex;
@@ -97,12 +102,12 @@ h3 {
 }
 
 a {
-    color: #f7f7f7; /* Change to the desired color */
+    color: #17790e; /* Change to the desired color */
     text-decoration: none; /* Remove underline */
 }
 
 a:hover {
-    color: #bce9c0; /* Change to the desired color on hover */
+    color: #0d4212; /* Change to the desired color on hover */
 }
 
 label {
