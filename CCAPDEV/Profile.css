@@ -182,4 +182,12 @@
 	}
     .posts{ width: 50%;}
 
+	button {
+		cursor: pointer;
+		border: transparent;
+		background-color: transparent;
+		color: #17790e;
+		font-size: 15.5px;
+	}
+
     
