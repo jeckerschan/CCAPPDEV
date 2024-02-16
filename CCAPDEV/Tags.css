@@ -91,3 +91,13 @@ label {
     text-align: center;
     margin-bottom: 30px;
 }
+
+button {
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
