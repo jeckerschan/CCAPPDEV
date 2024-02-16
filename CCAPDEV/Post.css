@@ -106,7 +106,16 @@ a:hover {
 
 label {
 
-    color: #6fff93;
+    font-weight: bold;
     font-size: 15px;
+    
 
+}
+
+button {
+    cursor: pointer;
+    border: transparent;
+    background-color: transparent;
+    color: #17790e;
+    margin-top: 10px;
 }
