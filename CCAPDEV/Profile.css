@@ -65,7 +65,7 @@
 		justify-content: right;
 	 }
 
-	/* Header layout */
+
 	
     .menu{ 
         width: 25%; 
@@ -118,7 +118,6 @@
 		background: #f1f1f1;
 	  }
 
-	  /* Set a style for the submit/login button */
 	  .form-container .btn {
 		background-color: #04AA6D;
 		color: white;
@@ -130,12 +129,10 @@
 		opacity: 0.8;
 	  }
 	  
-	  /* Add a red background color to the cancel button */
 	  .form-container .cancel {
 		background-color: red;
 	  }
 	  
-	  /* Add some hover effects to buttons */
 	  .form-container .btn:hover, .open-button:hover {
 		opacity: 1;
 	  }
@@ -169,12 +166,12 @@
 		font-weight: bold;
 	}
 	a {
-		color: #f7f7f7; /* Change to the desired color */
-		text-decoration: none; /* Remove underline */
+		color: #3b8318; 
+		text-decoration: none; 
 	}
 	
 	a:hover {
-		color: #bce9c0; /* Change to the desired color on hover */
+		color: #bce9c0; 
 	}
 	
 	label {
