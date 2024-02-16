@@ -125,3 +125,19 @@ button {
     color: #17790e;
     margin-top: 10px;
 }
+
+.upvote:hover{
+    color:#22da12
+}
+.downvote:hover{
+    color:red
+}
+.reply:hover{
+    color:rgb(16, 30, 153)
+}
+
+
+.Tags{
+    float:right;
+    
+}
