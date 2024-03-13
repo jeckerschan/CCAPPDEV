@@ -39,6 +39,17 @@ font:roboto;
 
 }
 
+
+.create-post{
+
+
+padding-top:63px;
+padding-left:30px;
+padding-bottom:10px;
+
+
+
+}
 .search-bar input[type="text"]
 {
 width: 150px;
@@ -79,7 +90,7 @@ color:white;
 
 .logout-link {
     
-    margin-top: 50px; 
+    margin-top: 55px; 
 }
 .box-item{
     width: 100%;
