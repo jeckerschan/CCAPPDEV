@@ -22,18 +22,65 @@ body {
     max-height: 100px;
 }
 
-.header-search{
+.search-bar form{
+    padding: 10px 10px;
     display: flex;
-    margin-top: 5px; 
-    align-items: right;
-}
-.header-search{ justify-content: right; }
+    align-items: center;
+    justify-content: right;
+    
 
-.logout-link{
-    float:right;
-   
 }
 
+
+.Tags
+{
+padding: 5px 10px;
+font:roboto;
+
+}
+
+.search-bar input[type="text"]
+{
+width: 150px;
+padding: 5px;
+border: 1px solid rgb(0, 0, 0);
+border-radius: 5px;
+margin-right:5px; 
+
+
+}
+.search-bar input[type="submit"]
+{
+padding: 5px 5px;
+background-color: #006937;
+color:white;
+
+
+
+
+}
+
+.profile-container {
+    position: fixed;
+    top: 120px; 
+    left: 20px; 
+    background-color:  #006937; 
+    border: 2px solid #000000; 
+    padding: 10px; 
+    width: 150px;
+    height: 80px;
+}
+
+.profile-container img {
+    width: 50px; 
+    height: 50px; 
+    margin-right: 5px; 
+}
+
+.logout-link {
+    
+    margin-top: 50px; 
+}
 .box-item{
     width: 100%;
     display: flex;
@@ -100,14 +147,18 @@ h3 {
     
 
 }
+.username{
+    color:white;
+    font:roboto;
+}
 
 a {
-    color: #17790e; /* Change to the desired color */
+    color: #1f8b1b; /* Change to the desired color */
     text-decoration: none; /* Remove underline */
 }
 
 a:hover {
-    color: #0d4212; /* Change to the desired color on hover */
+    color: #12c023; /* Change to the desired color on hover */
 }
 
 label {
