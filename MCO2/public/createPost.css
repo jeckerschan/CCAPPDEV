@@ -66,7 +66,7 @@ textarea {
     min-height: 100px;
 }
 
-.submit {
+#submit {
     display: block;
     width: 100%;
     padding: 10px;
@@ -81,7 +81,62 @@ button:hover {
     background-color: #125912;
 }
 
-.tags {
+#CCS {
+
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+#COS {
+
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+#CLA {
+
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+#COB {
+
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+#GCOE {
+
+    display:inline;
+    padding: 10px;
+    background-color: #35b73e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+#USG {
 
     display:inline;
     padding: 10px;
