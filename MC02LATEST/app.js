@@ -12,7 +12,7 @@ app.use(bodyParser.json()); // Parse JSON bodies
 const { Account } = require('./public/accountConst');
 const { sampleAccounts } = require('./public/accountConst');
 let tempAccounts = []; // Array to store temporary accounts
-let posts = [];
+let posts = []; // Array to store posts
 
 // Endpoint to receive and save temporary account data
 app.post('/saveTempAccount', (req, res) => {
@@ -40,6 +40,15 @@ app.post('/addAccount', (req, res) => {
   sampleAccounts.push(newAccount);
   console.log('New account added:', newAccount.username);
   console.log('Password:', newAccount.password);
+  res.sendStatus(200);
+});
+
+// Route to save post
+app.post('/savePost', (req, res) => {
+  const { title, description, tags } = req.body;
+  const post = { title, description, tags };
+  posts.push(post);
+  console.log('Post saved:', post);
   res.sendStatus(200);
 });
 
