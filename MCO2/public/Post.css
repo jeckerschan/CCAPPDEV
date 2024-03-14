@@ -22,13 +22,76 @@ body {
     max-height: 100px;
 }
 
-.header-search{
+.search-bar form{
+    padding: 10px 10px;
     display: flex;
-    margin-top: 5px; 
-    align-items: right;
-}
-.header-search{ justify-content: right; }
+    align-items: center;
+    justify-content: right;
+    
 
+}
+
+
+.Tags
+{
+padding: 5px 10px;
+font:roboto;
+
+}
+
+
+.create-post{
+
+
+padding-top:63px;
+padding-left:30px;
+padding-bottom:10px;
+
+
+
+}
+.search-bar input[type="text"]
+{
+width: 150px;
+padding: 5px;
+border: 1px solid rgb(0, 0, 0);
+border-radius: 5px;
+margin-right:5px; 
+
+
+}
+.search-bar input[type="submit"]
+{
+padding: 5px 5px;
+background-color: #006937;
+color:white;
+
+
+
+
+}
+
+.profile-container {
+    position: fixed;
+    top: 120px; 
+    left: 20px; 
+    background-color:  #006937; 
+    border: 2px solid #000000; 
+    padding: 10px; 
+    width: 150px;
+    height: 80px;
+}
+
+.profile-container img {
+    width: 50px; 
+    height: 50px; 
+    margin-right: 5px; 
+}
+
+.logout-link {
+    
+    margin-top: 55px; 
+}
 .box-item{
     width: 100%;
     display: flex;
@@ -77,9 +140,9 @@ h3 {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 80%;
+    width: 300px;
     margin: 0 auto; 
-    margin-top: 5px;
+    margin-top: 10px;
     
 }
 .comments{
@@ -94,15 +157,30 @@ h3 {
     
 
 }
+.username{
+    color:white;
+    font:roboto;
+}
+
 
 a {
-    color: #f7f7f7; /* Change to the desired color */
+    color: #1f8b1b; /* Change to the desired color */
     text-decoration: none; /* Remove underline */
 }
 
 a:hover {
-    color: #bce9c0; /* Change to the desired color on hover */
+    color: #12c023; /* Change to the desired color on hover */
 }
+
+b{
+    color: #ffffff; /* Change to the desired color */
+    text-decoration: none; /* Remove underline */
+}
+
+b:hover {
+    color: #12c023; /* Change to the desired color on hover */
+}
+
 
 label {
 
@@ -118,4 +196,23 @@ button {
     background-color: transparent;
     color: #17790e;
     margin-top: 10px;
+}
+
+.upvote:hover{
+    color:#22da12
+}
+.downvote:hover{
+    color:red
+}
+.reply:hover{
+    color:rgb(16, 30, 153)
+}
+
+
+.Tags{
+    float:right;
+    background-color: 006937;
+    border-radius: 8px;
+    border-style: solid;
+
 }
