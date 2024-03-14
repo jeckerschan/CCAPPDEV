@@ -27,6 +27,12 @@ app.get('/sampleAccounts', (req, res) => {
   res.json(sampleAccounts);
 });
 
+app.post('/removeTempAccount', (req, res) => {
+  tempAccounts = []; // Empty the tempAccounts array
+  console.log('All session accounts removed');
+  res.status(200).send('All session accounts removed successfully.');
+});
+
 // Route to add account
 app.post('/addAccount', (req, res) => {
   const { username, password } = req.body;
