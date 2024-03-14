@@ -5,42 +5,64 @@ $(document).ready(function() {
         $(this).toggleClass('active');
     });
 
+    // Handle form submission
     $('#post-form').submit(function(event) {
         event.preventDefault(); // Prevent the form from submitting normally
-        
-        // Get form data
+
+        // Extract form data
         var title = $('#title').val();
         var description = $('#description').val();
-        var tags = $('.tag-btn.active').map(function() {
-            return $(this).val();
-        }).get();
-        
-        // Validate form fields (you can add your own validation logic)
-        if (title.trim() === '' || description.trim() === '' || tags.length === 0) {
+        var tags = getSelectedTags();
+
+        // Validate form fields
+        if (!isValidForm(title, description, tags)) {
             alert('Please fill in all fields and select at least one tag.');
             return;
         }
-        
+
         // Send data to server
         var postData = {
             title: title,
             description: description,
             tags: tags
         };
-        
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:3000/savePost',
-            contentType: 'application/json',
-            data: JSON.stringify(postData),
-            success: function(response) {
-                console.log('Post saved successfully');
-                window.location.href = 'MainPage.html'; // Redirect to MainPage.html after successful submission
-            },
-            error: function(xhr, status, error) {
-                console.error('Error saving post:', error);
-                alert('Error saving post. Please try again.');
-            }
-        });
+
+        savePostData(postData);
     });
 });
+
+// Function to get selected tags
+function getSelectedTags() {
+    return $('.tag-btn.active').map(function() {
+        return $(this).val();
+    }).get();
+}
+
+// Function to validate form fields
+function isValidForm(title, description, tags) {
+    return title.trim() !== '' && description.trim() !== '' && tags.length > 0;
+}
+
+// Function to save post data
+function savePostData(postData) {
+    fetch('http://localhost:3000/savePost', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Post saved successfully');
+            window.location.href = 'MainPage.html'; // Redirect to MainPage.html after successful submission
+        } else {
+            throw new Error('Error saving post');
+        }
+    })
+    .catch(error => {
+        console.error('Error saving post:', error);
+        alert('Error saving post. Please try again.');
+    });
+}
+
