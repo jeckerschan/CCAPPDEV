@@ -1,0 +1,42 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="createPost.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="module" src="http://localhost:3000/createPost.js"></script>
+</head>
+<body>
+    <div class="banner">
+        <img src="tempbanner.jpg" alt="Banner Image">
+    </div>
+    <div class="container">
+        <h1>Create Post</h1>
+        <div class="form-div">
+            <form id="post-form">
+                <input type="text" id="title" style="margin-bottom: 10px" name="Title" value="Title">
+            
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4">Enter text here</textarea>
+            
+                <label for="tags" style="margin-top: 10px;">Tags</label>
+                
+                <button class="tag-btn" value="CCS">CCS</button>
+                <button class="tag-btn" value="COS">COS</button>
+                <button class="tag-btn" value="CLA">CLA</button>
+                <button class="tag-btn" value="COB">COB</button>
+                <button class="tag-btn" value="GCOE">GCOE</button>
+                <button class="tag-btn" value="USG">USG</button>
+                
+                <input type="submit" id="submit-btn" value="Submit"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

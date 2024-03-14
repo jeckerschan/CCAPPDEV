@@ -1,0 +1,218 @@
+body {
+    font-family: Roboto, sans-serif;
+    /*background-color: #dbdbd3;*/
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-image:url(background.png);  
+    background-size: cover; 
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.banner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+}
+.banner img {
+    width: 100%;
+    max-height: 100px;
+}
+
+.search-bar form{
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    
+
+}
+
+
+.Tags
+{
+padding: 5px 10px;
+font:roboto;
+
+}
+
+
+.create-post{
+
+
+padding-top:63px;
+padding-left:30px;
+padding-bottom:10px;
+
+
+
+}
+.search-bar input[type="text"]
+{
+width: 150px;
+padding: 5px;
+border: 1px solid rgb(0, 0, 0);
+border-radius: 5px;
+margin-right:5px; 
+
+
+}
+.search-bar input[type="submit"]
+{
+padding: 5px 5px;
+background-color: #006937;
+color:white;
+
+
+
+
+}
+
+.profile-container {
+    position: fixed;
+    top: 120px; 
+    left: 20px; 
+    background-color:  #006937; 
+    border: 2px solid #000000; 
+    padding: 10px; 
+    width: 150px;
+    height: 80px;
+}
+
+.profile-container img {
+    width: 50px; 
+    height: 50px; 
+    margin-right: 5px; 
+}
+
+.logout-link {
+    
+    margin-top: 55px; 
+}
+.box-item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
+.box-item > img{
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.header-profile{ padding-right: 30px; }
+	.header-profile > div.box-item{ 
+        justify-content: right;
+	}
+
+.container {
+    background-color: #006937;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 500px;
+    height: auto;
+    margin: 0 auto; 
+    margin-top: 50px;
+}
+h2 {
+    text-align: center;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+}
+
+.post{
+    background-color: rgb(255, 255, 255);
+    color:#000000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 300px;
+    margin: 0 auto; 
+    margin-top: 10px;
+    
+}
+.comments{
+    background-color: rgba(58, 55, 55, 0.205);
+    color:#000000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 250px;
+    margin: 0 auto; 
+    margin-top: 20px;
+    
+
+}
+.username{
+    color:white;
+    font:roboto;
+}
+
+
+a {
+    color: #1f8b1b; /* Change to the desired color */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    color: #12c023; /* Change to the desired color on hover */
+}
+
+b{
+    color: #ffffff; /* Change to the desired color */
+    text-decoration: none; /* Remove underline */
+}
+
+b:hover {
+    color: #12c023; /* Change to the desired color on hover */
+}
+
+
+label {
+
+    font-weight: bold;
+    font-size: 15px;
+    
+
+}
+
+button {
+    cursor: pointer;
+    border: transparent;
+    background-color: transparent;
+    color: #17790e;
+    margin-top: 10px;
+}
+
+.upvote:hover{
+    color:#22da12
+}
+.downvote:hover{
+    color:red
+}
+.reply:hover{
+    color:rgb(16, 30, 153)
+}
+
+
+.Tags{
+    float:right;
+    background-color: 006937;
+    border-radius: 8px;
+    border-style: solid;
+
+}
