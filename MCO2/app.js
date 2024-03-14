@@ -28,11 +28,10 @@ app.post('/savePost', (req, res) => {
   res.sendStatus(200);
 });
 
-/* Route to get all posts
+
 app.get('/posts', (req, res) => {
   res.json(posts);
 });
-*/
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

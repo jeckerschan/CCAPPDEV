@@ -66,3 +66,36 @@ function savePostData(postData) {
     });
 }
 
+// Function to fetch posts from the server
+function fetchPosts() {
+    fetch('http://localhost:3000/posts')
+    .then(response => response.json())
+    .then(posts => displayPosts(posts))
+    .catch(error => {
+        console.error('Error fetching posts:', error);
+        alert('Error fetching posts. Please try again.');
+    });
+}
+
+// Function to display posts on the MainPage.html
+function displayPosts(posts) {
+    var postList = $('#post-list'); // Assuming there's a container with id 'post-list' on MainPage.html
+
+    posts.forEach(post => {
+        var postElement = $('<div class="post"></div>');
+        postElement.append('<h3>' + post.title + '</h3>');
+        postElement.append('<p>' + post.description + '</p>');
+        postElement.append('<label>Tags:</label>');
+        postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>')
+        // Add more content as needed
+
+        postList.append(postElement);
+    });
+}
+
+// Call fetchPosts when MainPage.html is loaded
+$(document).ready(function() {
+    fetchPosts();
+});
+
+
