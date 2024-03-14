@@ -1,42 +1,46 @@
 $(document).ready(function() {
+    // Toggle tag button active state
+    $('.tag-btn').click(function(event) {
+        event.preventDefault(); // Prevent the default behavior of the tag button
+        $(this).toggleClass('active');
+    });
 
-    $("#submit-btn").click(function() {
-
-        /*
-        var title = $("#title").val();
-        var description = $("#description").val();
-        var username = sampleAccounts.getUsername();
-        var tags = document.getElementById("CCS");
-
-        var newPost = '<div class="post">' +
-            '<a href="Post.html"><h3>' + title + '</h3></a>' +
-            '<h5>' + username + '</h5>' +
-            '<p>' + description + '</p>' +
-            '<label>Tags:</label>' + '<p>' + tags + '</p>' +
-            '<div class="actions">' +
-            '<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>' +
-            '<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>' +
-            '</div>' +
-            '<div class="comments">' +
-            '<h4>Comments</h4>' +
-            '<ul>' +
-            '<li>Comment 1</li>' +
-            '</ul>' +
-            '<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>' +
-            '<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>' +
-            '<button class="reply"><span class="material-symbols-outlined">reply</span></button>' +
-            '</div>' +
-            '<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>' +
-            '</div>';
-
-        $("#postlist-div").append(newPost);
-
-        window.location.href = "MainPage.html";
-
-        */
-
-        window.location.href ="MainPage.html";
+    $('#post-form').submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Get form data
+        var title = $('#title').val();
+        var description = $('#description').val();
+        var tags = $('.tag-btn.active').map(function() {
+            return $(this).val();
+        }).get();
+        
+        // Validate form fields (you can add your own validation logic)
+        if (title.trim() === '' || description.trim() === '' || tags.length === 0) {
+            alert('Please fill in all fields and select at least one tag.');
+            return;
+        }
+        
+        // Send data to server
+        var postData = {
+            title: title,
+            description: description,
+            tags: tags
+        };
+        
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/savePost',
+            contentType: 'application/json',
+            data: JSON.stringify(postData),
+            success: function(response) {
+                console.log('Post saved successfully');
+                window.location.href = 'MainPage.html'; // Redirect to MainPage.html after successful submission
+            },
+            error: function(xhr, status, error) {
+                console.error('Error saving post:', error);
+                alert('Error saving post. Please try again.');
+            }
+        });
     });
 });
-
-

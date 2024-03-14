@@ -93,3 +93,7 @@ button:hover {
     cursor: pointer;
     
 }
+
+.tag-btn.active {
+    background-color: #125912; /* Change the background color when the button is active */
+}

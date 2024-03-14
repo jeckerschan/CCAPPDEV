@@ -10,7 +10,7 @@
     <title>Create Post</title>
     <link rel="stylesheet" href="createPost.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="createPost.js"></script>
+    <script type="module" src="http://localhost:3000/createPost.js"></script>
 </head>
 <body>
     <div class="banner">
@@ -20,22 +20,21 @@
         <h1>Create Post</h1>
         <div class="form-div">
             <form id="post-form">
-                <label for="title">Title</label>
                 <input type="text" id="title" style="margin-bottom: 10px" name="Title" value="Title">
             
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4">Enter text here</textarea>
             
                 <label for="tags" style="margin-top: 10px;">Tags</label>
-            
-                <button class="tag-btn" id="CCS">CCS</button>
-                <button class="tag-btn" id="COS">COS</button>
-                <button class="tag-btn" id="CLA">CLA</button>
-                <button class="tag-btn" id="COB">COB</button>
-                <button class="tag-btn" id="GCOE">GCOE</button>
-                <button class="tag-btn" id="USG">USG</button>
-            
-                <input type="button" id="submit-btn" value="Submit"/>
+                
+                <button class="tag-btn" value="CCS">CCS</button>
+                <button class="tag-btn" value="COS">COS</button>
+                <button class="tag-btn" value="CLA">CLA</button>
+                <button class="tag-btn" value="COB">COB</button>
+                <button class="tag-btn" value="GCOE">GCOE</button>
+                <button class="tag-btn" value="USG">USG</button>
+                
+                <input type="submit" id="submit-btn" value="Submit"/>
             </form>
         </div>
     </div>
