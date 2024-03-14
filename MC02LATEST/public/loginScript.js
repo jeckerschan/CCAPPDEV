@@ -2,7 +2,7 @@
 
 console.log("loginScript.js is loaded!");
 
-import { sampleAccounts } from './accountConst.js';
+//const { sampleAccounts } = require('./public/accountConst');
 
 
 function createTempAccount(username, password) {
@@ -11,10 +11,22 @@ function createTempAccount(username, password) {
 
 
 function validateLogin(username, password) {
- 
-    const tempAccount = createTempAccount(username, password);
-
-    return sampleAccounts.some(account => account.username === tempAccount.username && account.password === tempAccount.password);
+    // Fetch sampleAccounts from the server
+    fetch('http://localhost:3000/sampleAccounts')
+        .then(response => response.json())
+        .then(sampleAccounts => {
+            // Validate login using fetched sampleAccounts
+            const tempAccount = createTempAccount(username, password);
+            return sampleAccounts.some(account => account.username === tempAccount.username && account.password === tempAccount.password);
+        })
+        .then(isValid => {
+            if (isValid) {
+                // If login is valid, save temporary account
+                saveTempAccount(username, password);
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        })
 }
 
 
@@ -30,9 +42,6 @@ function handleFormSubmit(event) {
         saveTempAccount(username, password);
         //window.location.href = 'MainPage.html';
         //saveTempAccount(username, password);
-    } else {
-    
-        alert('Invalid username or password. Please try again.');
     }
 
    

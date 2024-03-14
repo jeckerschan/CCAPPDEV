@@ -1,14 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
 const bodyParser = require('body-parser');
+
+const app = express();
 
 app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json()); // Parse JSON bodies
 
+// Require Account constructor from accountConst.js
+const { Account } = require('./public/accountConst');
+const { sampleAccounts } = require('./public/accountConst');
 let tempAccounts = []; // Array to store temporary accounts
-
 let posts = [];
 
 // Endpoint to receive and save temporary account data
@@ -19,15 +22,20 @@ app.post('/saveTempAccount', (req, res) => {
   res.status(200).send('Temporary account saved successfully.');
 });
 
-// Route to save post
-app.post('/savePost', (req, res) => {
-  const { title, description, tags } = req.body;
-  const post = { title, description, tags };
-  posts.push(post);
-  console.log('Post saved:', post);
-  res.sendStatus(200);
+// Route to send sampleAccounts data
+app.get('/sampleAccounts', (req, res) => {
+  res.json(sampleAccounts);
 });
 
+// Route to add account
+app.post('/addAccount', (req, res) => {
+  const { username, password } = req.body;
+  const newAccount = new Account(username, password); // Use the Account constructor
+  sampleAccounts.push(newAccount);
+  console.log('New account added:', newAccount.username);
+  console.log('Password:', newAccount.password);
+  res.sendStatus(200);
+});
 
 app.get('/posts', (req, res) => {
   res.json(posts);

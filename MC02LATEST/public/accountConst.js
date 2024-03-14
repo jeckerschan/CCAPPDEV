@@ -7,15 +7,14 @@ const sampleAccounts = [
     new Account('Gian', 'password1'),
     new Account('Luis', 'password2'),
     new Account('Jeck', 'password3'),
-    new Account('TestUser', 'password4'),
+    new Account('TestUser1', 'password4'),
     new Account('TestUser', 'password5')
 ];
 
 function addAccount(username, password) {
     const newAccount = new Account(username, password);
     sampleAccounts.push(newAccount);
-    console.log('New account added:', newAccount.getUsername());
+    console.log('New account added:', newAccount.username);
 }
 
-
-export { Account, sampleAccounts, addAccount };
+module.exports = { Account, sampleAccounts, addAccount };

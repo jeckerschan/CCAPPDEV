@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="registerstyle.css">
+    <script type="module" src="http://localhost:3000/register.js"></script>
 </head>
 <body>
     <div class="banner">
@@ -12,7 +13,7 @@
     </div>
     <div class="container">
         <h1>Register</h1>
-        <form id="registerForm" action="Login.html" onsubmit="return validateForm()">
+        <form id="registerForm" action="Login.html">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -30,19 +31,7 @@
         </form>
     </div>
 
-    <script>
-        function validateForm() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmpassword").value;
 
-            if (password != confirmPassword) {
-                document.getElementById("passwordError").innerHTML = "Passwords do not match!";
-                return false;
-            } else {
-                document.getElementById("passwordError").innerHTML = "";
-                return true;
-            }
-        }
-    </script>
+
 </body>
 </html>
