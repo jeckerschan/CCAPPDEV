@@ -86,7 +86,24 @@ function displayPosts(posts) {
         postElement.append('<h3>' + post.title + '</h3>');
         postElement.append('<p>' + post.description + '</p>');
         postElement.append('<label>Tags:</label>');
-        postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>')
+        postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>');
+        postElement.append('<div class="actions">');
+        postElement.append('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+        postElement.append('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+        postElement.append('</div>');
+        
+        postElement.append('<div class="comments">');
+        postElement.find('.comments').append('<h4>Comments</h4>');
+        // Creating a div to encapsulate the buttons
+        var buttonsDiv = $('<div>');
+        buttonsDiv.append('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+        buttonsDiv.append('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+        buttonsDiv.append('<button class="reply"><span class="material-symbols-outlined">reply</span></button>');
+        // Appending the buttons div to the comments container
+        postElement.find('.comments').append(buttonsDiv);
+        postElement.append('</div>');
+        
+        postElement.append('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>')
         // Add more content as needed
 
         postList.append(postElement);
