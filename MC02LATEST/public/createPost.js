@@ -78,7 +78,7 @@ function fetchPosts() {
 }
 
 function fetchAccount(){
-    fetch('http://localhost:3000/sampleAccounts')
+    return fetch('http://localhost:3000/tempAccounts')
     .then(response => response.json())
 }
 
@@ -137,6 +137,10 @@ function saveComment(postId, comment) {
         }
         return response.json();
     })
+    .then(data => {
+        console.log(data.message); // Display the success message
+        // Optionally, you can update the UI to reflect the successful addition of the comment
+    })
     .catch(error => {
         console.error('Error updating comments:', error);
         alert('Failed to update comment on the server');
@@ -193,6 +197,7 @@ function displayPosts(posts) {
 
         postElement.append('<div class="comments">');
         postElement.find('.comments').append('<h4>Comments</h4>');
+        postElement.find('.comments').append('<p>' + post.comments + '</p>');
 
         var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
         commentButton.click(function() {
@@ -204,16 +209,30 @@ function displayPosts(posts) {
             var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
             var submitButton = $('<button type="submit">Submit</button>');
 
-            //submit button functionality
-            submitButton.click(function() {
-
+            //submit comment functionality
+            submitButton.click(function(event) {
+                event.preventDefault();
                 var commentText = commentTextArea.val();
-                fetchAccount(); //get account of current session user
-                saveComment(post.id, commentText);
-                $(this).find('.comments').append('<p>' + commentText + '</p>');
-
-            });
+                
+                var commentWithUsername; // Declare variable to hold comment with username
             
+                fetchAccount()
+                    .then(tempAccounts => {
+                        var username = tempAccounts[0].username; 
+                        commentWithUsername = username + ': ' + commentText; 
+                        var commentElement = $('<p></p>').text(commentWithUsername);
+                        $(this).closest('.post').find('.comments').append(commentElement); 
+                        return saveComment(post.id, commentText); 
+                    })
+                    .then(response => {
+                        console.log('Comment added:', commentWithUsername); 
+                    })
+                    .catch(error => {
+                        console.error('Error adding comment:', error);
+                        alert('Failed to add comment.');
+                    });
+            });
+
             // Append the form elements to the comment form
             commentForm.append(commentTextArea);
             commentForm.append(submitButton);

@@ -30,6 +30,10 @@ app.post('/saveTempAccount', (req, res) => {
   res.status(200).send('Temporary account saved successfully.');
 });
 
+app.get('/tempAccounts', (req, res) => {
+  res.json(tempAccounts);
+});
+
 // Route to send sampleAccounts data
 app.get('/sampleAccounts', (req, res) => {
   res.json(sampleAccounts);
@@ -90,7 +94,7 @@ app.post('/updateComment', (req, res) => {
   const { postId, comment } = req.body;
 
   posts[postId].comments.push(comment);
-  res.json({ success: true, message: 'Comment added successfully' });
+  res.json({ success: true, message: 'Comment added successfully: ' + posts[postId].comments });
 
 });
 
@@ -99,7 +103,7 @@ app.listen(3000, () => {
 });
 // Route handler for the root URL
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/MainPage.html');
+  res.sendFile(__dirname + '/public/Login.html');
 });
 
 
