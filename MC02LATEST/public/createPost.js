@@ -13,6 +13,7 @@ $(document).ready(function() {
         var title = $('#title').val();
         var description = $('#description').val();
         var tags = getSelectedTags();
+        var postID = 0;
 
         // Validate form fields
         if (!isValidForm(title, description, tags)) {
@@ -24,7 +25,8 @@ $(document).ready(function() {
         var postData = {
             title: title,
             description: description,
-            tags: tags
+            tags: tags,
+            id: postID++
         };
 
         savePostData(postData);

@@ -11,8 +11,21 @@ app.use(bodyParser.json()); // Parse JSON bodies
 // Require Account constructor from accountConst.js
 const { Account } = require('./public/accountConst');
 const { sampleAccounts } = require('./public/accountConst');
+const { samplePosts } = require('./public/postConst');
+const { Post } = require('./public/postConst');
 let tempAccounts = []; // Array to store temporary accounts
 let posts = []; // Array to store posts
+
+// Concatenate the samplePosts array into the posts array
+posts = posts.concat(samplePosts);
+
+// Ensure each post has a unique ID
+posts.forEach((post, index) => {
+    post.id = index + 1; // Assigning a simple incremental ID for each post
+});
+
+console.log(posts); // Output the resulting array of posts
+
 
 // Endpoint to receive and save temporary account data
 app.post('/saveTempAccount', (req, res) => {
@@ -45,8 +58,8 @@ app.post('/addAccount', (req, res) => {
 
 // Route to save post
 app.post('/savePost', (req, res) => {
-  const { title, description, tags } = req.body;
-  const post = { title, description, tags };
+  const { id, title, description, tags } = req.body;
+  const post = { id, title, description, tags };
   posts.push(post);
   console.log('Post saved:', post);
   res.sendStatus(200);
