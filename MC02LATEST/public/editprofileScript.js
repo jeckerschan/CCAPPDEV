@@ -60,14 +60,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-fetch('http://localhost:3000/getUserData')
-    .then(response => response.json())
-    .then(data => {
-        if (data.username) {
-            document.getElementById('usernameSpan').textContent = data.username;
-        }
-        if (data.description) {
-            document.getElementById('description').value = data.description;
-        }
-    })
-    .catch(error => console.error('Error fetching user data:', error));
