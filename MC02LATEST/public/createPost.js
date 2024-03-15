@@ -77,6 +77,47 @@ function fetchPosts() {
     });
 }
 
+//function to save upvotes to server
+function saveUpvote(postId) {
+    fetch(`http://localhost:3000/updateUpvote`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Upvote updated');
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error('Error updating upvote count on the server:', error);
+        alert('Failed to update upvote count on the server. Please try again.');
+    });
+}
+
+function saveDownvote(postId) {
+    fetch(`http://localhost:3000/updateDownvote`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Downvote updated');
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error('Error updating downvote count on the server:', error);
+        alert('Failed to update downvote count on the server. Please try again.');
+    });
+}
+
 // Function to display posts on the MainPage.html
 function displayPosts(posts) {
 
@@ -93,6 +134,8 @@ function displayPosts(posts) {
         postElement.append('<div class="actions">');
 
         var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+        var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
+        upvoteButton.append(upvoteCountSpan); 
 
         upvoteButton.click(function() {
             // Increment upvote count and update UI
@@ -100,10 +143,13 @@ function displayPosts(posts) {
             $(this).find('.upvote-count').remove();
             $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
             console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
+            saveUpvote(post.id);
             
         });        
 
         var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+        var downvoteCountSpan = $('<span class="downvote-count">' + post.downvotes + '</span>'); 
+        downvoteButton.append(downvoteCountSpan); 
         
         downvoteButton.click(function() {
             // Increment downvote count and update UI
@@ -112,6 +158,7 @@ function displayPosts(posts) {
              $(this).find('.downvote-count').remove();
              $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
             console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
+            saveDownvote(post.id);
         
         });
         
@@ -132,7 +179,7 @@ function displayPosts(posts) {
 
         var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
         commentButton.click(function() {
-            // Handle comment button click event
+            
             console.log('Comment clicked for post:', post.title);
             
             // Create the comment form elements
@@ -150,9 +197,10 @@ function displayPosts(posts) {
             // Optionally, you can hide the comment button after the comment form is displayed
             $(this).hide();
         });
-        postElement.append(commentButton);
 
+        postElement.append(commentButton);
         postList.append(postElement);
+
     });
 }
 

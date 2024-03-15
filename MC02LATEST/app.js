@@ -67,6 +67,24 @@ app.get('/posts', (req, res) => {
   res.json(posts);
 });
 
+// route to update number of upvotes
+app.post('/updateUpvote', (req, res) => {
+  const postId = req.body.postId; // Assuming the client sends the entire post object in the request body
+  
+  posts[postId].upvotes++;
+  res.json({ success: true, message: 'Upvote count updated successfully' });
+
+});
+
+// route to update number of downvotes
+app.post('/updateDownvote', (req, res) => {
+  const postId = req.body.postId; // Assuming the client sends the entire post object in the request body
+  
+  posts[postId].downvotes++;
+  res.json({ success: true, message: 'Downvote count updated successfully' });
+
+});
+
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
