@@ -39,15 +39,11 @@ font:roboto;
 
 }
 
-
 .create-post{
-
 
 padding-top:63px;
 padding-left:30px;
 padding-bottom:10px;
-
-
 
 }
 .search-bar input[type="text"]
@@ -65,9 +61,6 @@ margin-right:5px;
 padding: 5px 5px;
 background-color: #006937;
 color:white;
-
-
-
 
 }
 
@@ -211,7 +204,7 @@ button {
 
 .Tags{
     float:right;
-    background-color: 006937;
+    background-color: white;
     border-radius: 8px;
     border-style: solid;
 
