@@ -246,6 +246,16 @@ color:white;
 		
 	
 	}
+
+	c {
+		color: #ffffff; /* Change to the desired color */
+		font-size: 25px; /* Change to the desired font size */
+		text-decoration: none; /* Remove underline */
+	}
+
+	c:hover {
+		color: #12c023; /* Change to the desired color on hover */
+	}
 	
 	button {
 		cursor: pointer;
