@@ -236,14 +236,11 @@ function displayPosts(posts) {
                     });
             });
 
-            // Append the form elements to the comment form
             commentForm.append(commentTextArea);
             commentForm.append(submitButton);
             
-            // Append the comment form to the post element or any desired container
             $(this).closest('.post').append(commentForm);
             
-            // Optionally, you can hide the comment button after the comment form is displayed
             $(this).hide();
         });
 
