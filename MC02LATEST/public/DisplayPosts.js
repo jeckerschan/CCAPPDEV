@@ -17,3 +17,7 @@ fetch('https://example.com/tempaccounts')
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
+
+  app.get('/posts', (req, res) => {
+    res.json(posts);
+  });

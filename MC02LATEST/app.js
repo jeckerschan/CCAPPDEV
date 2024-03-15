@@ -124,4 +124,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/MainPage.html');
 });
 
-
+app.get('/sampleAccounts', (req, res) => {
+  res.json(sampleAccounts);
+});
