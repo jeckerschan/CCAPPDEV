@@ -158,8 +158,8 @@ function displayPosts(posts) {
         var postElement = $('<div class="post"></div>');
         postElement.append('<h3>' + post.title + '</h3>');
         postElement.append('<p>' + post.description + '</p>');
-        postElement.append('<label>Tags:</label>');
-        postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>');
+        postElement.append('<label>Tags: </label>');
+        postElement.append('<span style ="font-size: 14">' + post.tags.join(', ') + '</span>');
         postElement.append('<div class="actions">');
 
         var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
