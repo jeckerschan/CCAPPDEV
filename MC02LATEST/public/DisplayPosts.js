@@ -171,11 +171,7 @@ function displayPosts(posts) {
   postList.empty();
 
   posts.forEach(post => {
-    var editpost = $('<button class="editpost"><span class="material-symbols-outlined">edit</span></button>');
-    editpost.click(function() {
-      console.log('Post edited for:', post.title);
-
-    });
+    
     
       var postElement = $('<div class="post"></div>');
       postElement.append('<h3>' + post.title + '</h3>');
