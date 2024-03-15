@@ -9,10 +9,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Social Media 2 page</title>
-	<link rel="stylesheet" type="text/css" href="Profile.css">
-
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Social Media 2 page</title>
+		<link rel="stylesheet" type="text/css" href="Profile.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script src="DisplayPosts.js"></script>
+		<script type="module" src="http://localhost:3000/createPost.js"></script>
+	</head>
 </head>
 <body>
 	<div class="banner">
@@ -50,36 +55,9 @@
 		<c>&nbsp Test User<br><br></c>
 		
 		<b>Your posts:</b>
-		<div class="post">
-			<button class="edit" onclick="openForm()">Edit Post</button>
-			<div class="popup" id="myForm">
-				<form action="/action_page.php" class="form-container">
-				
-					<button type="submit" class="btn">Delete</button>
-					<button type = "submit" class="btn">Edit</button>
-					<button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-				  </form>
-			</div>
-			<a href="Post.html"><h3>Sinigang</h3></a>
-			<p>Sinigang is a sour soup native to the Philippines. This recipe uses pork as the main ingredient. Other proteins and seafood can also be used. Beef, shrimp, fish are commonly used to cook sinigang</p>
-			<label>Tags:</label>
-			<a href="Post.html"> <button>CCS</button> </a>
-			<div class="actions">
-				<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>
-				<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>
-			</div>
-			<div class="comments">
-				<h4>Comments</h4>
-				<ul>
-					<li>Comment 1</li>
-					
-				</ul>
-				<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>
-				<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>
-				<button class="reply"><span class="material-symbols-outlined">reply</span></button>
-			</div>
-			<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>
-		</div>
+		<div id="post">
+                
+		</div> 
 		
 		
 		

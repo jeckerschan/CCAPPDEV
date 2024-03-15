@@ -15,11 +15,13 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
+	border-radius: 8px;
     
 }
 .banner img {
     width: 100%;
     max-height: 100px;
+	border-radius: 8px;
 }
 
 .search-bar form{
@@ -108,7 +110,7 @@ color:white;
 		justify-content: right;
 	 }
 
-	.container {
+	 .container {
 		background-color: #006937;
 		border-radius: 8px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -116,9 +118,20 @@ color:white;
 		width: 500px;
 		height: auto;
 		margin: 0 auto; 
-		margin-top: 150px;
-		padding-top: 100px;
+		margin-top: auto;
+	
 	}
+	h2 {
+		text-align: center;
+		color: white;
+	}
+	
+	h3 {
+		text-align: center;
+		color: black;
+		font-weight: bold;
+	}
+
 	.post{
 		background-color: rgb(255, 255, 255);
 		color:#000000;
@@ -180,16 +193,6 @@ color:white;
 
 	}
 	
-	h2 {
-		text-align: center;
-		color: white;
-	}
-	
-	h3 {
-		text-align: center;
-		color: black;
-		font-weight: bold;
-	}
 	
 	.post{
 		background-color: rgb(255, 255, 255);
