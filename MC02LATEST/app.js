@@ -23,7 +23,6 @@ posts = posts.concat(samplePosts);
 posts.forEach((post, index) => {
     post.id = index + 1; // Assigning a simple incremental ID for each post
 });
-
 console.log(posts); // Output the resulting array of posts
 
 
@@ -58,8 +57,11 @@ app.post('/addAccount', (req, res) => {
 
 // Route to save post
 app.post('/savePost', (req, res) => {
-  const { id, title, description, tags } = req.body;
-  const post = { id, title, description, tags };
+  let { id, title, description, tags, upvotes , downvotes } = req.body;
+  let post = { id, title, description, tags, upvotes, downvotes };
+  post.upvotes = 0;
+  post.downvotes = 0;
+  post.id = posts.length + 1;
   posts.push(post);
   console.log('Post saved:', post);
   res.sendStatus(200);
@@ -74,7 +76,7 @@ app.listen(3000, () => {
 });
 // Route handler for the root URL
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/createPost.html');
+  res.sendFile(__dirname + '/public/MainPage.html');
 });
 
 

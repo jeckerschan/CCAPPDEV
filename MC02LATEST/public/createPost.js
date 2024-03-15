@@ -13,11 +13,10 @@ $(document).ready(function() {
         var title = $('#title').val();
         var description = $('#description').val();
         var tags = getSelectedTags();
-        var postID = 0;
 
         // Validate form fields
         if (!isValidForm(title, description, tags)) {
-            alert('Please fill in all fields and select at least one tag.');
+            alert('Please fill in all fields');
             return;
         }
 
@@ -26,7 +25,6 @@ $(document).ready(function() {
             title: title,
             description: description,
             tags: tags,
-            id: postID++
         };
 
         savePostData(postData);
@@ -42,7 +40,7 @@ function getSelectedTags() {
 
 // Function to validate form fields
 function isValidForm(title, description, tags) {
-    return title.trim() !== '' && description.trim() !== '' && tags.length > 0;
+    return title.trim() !== '' && description.trim() !== '';
 }
 
 // Function to save post data
@@ -94,62 +92,27 @@ function displayPosts(posts) {
         postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>');
         postElement.append('<div class="actions">');
 
-        post.upvotes = 0;
-        var upvoted = false;
         var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
 
         upvoteButton.click(function() {
-            if (upvoted) {
-                // Decrement upvote count and update UI
-                post.upvotes--; // Decrement upvote count for this post
-                localStorage.setItem('upvotes_' + post.id, post.upvotes); // Save upvotes count to localStorage
-                // Update UI to display the updated upvote count
-                $(this).find('.upvote-count').remove();
-                if (post.upvotes > 0) {
-                    $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
-                }
-                console.log('Upvote removed for post:', post.title, 'Upvotes:', post.upvotes);
-                upvoted = false; // Toggle the flag
-            } 
-            else {
-                // Increment upvote count and update UI
-                post.upvotes++; // Increment upvote count for this post
-                localStorage.setItem('upvotes_' + post.id, post.upvotes); // Save upvotes count to localStorage
-                // Update UI to display the updated upvote count
-                $(this).find('.upvote-count').remove();
-                $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
-                console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
-                upvoted = true; // Toggle the flag
-            }
+            // Increment upvote count and update UI
+            post.upvotes++; // Increment upvote count for this post
+            $(this).find('.upvote-count').remove();
+            $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
+            console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
+            
         });        
 
-        post.downvotes = 0;
-        var downvoted = false;
         var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
         
         downvoteButton.click(function() {
-            if (downvoted) {
-                // Decrement downvote count and update UI
-                post.downvotes--; // Decrement downvote count for this post
-                localStorage.setItem('downvotes_' + post.id, post.downvotes); // Save downvotes count to localStorage
-                // Update UI to display the updated downvote count
-                $(this).find('.downvote-count').remove();
-                if (post.downvotes > 0) {
-                    $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
-                }
-                console.log('Downvote removed for post:', post.title, 'Downvotes:', post.downvotes);
-                downvoted = false; // Toggle the flag
-            } 
-            else {
-                // Increment downvote count and update UI
-                post.downvotes++; // Increment downvote count for this post
-                localStorage.setItem('downvotes_' + post.id, post.downvotes); // Save downvotes count to localStorage
-                // Update UI to display the updated downvote count
-                $(this).find('.downvote-count').remove();
-                $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
-                console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
-                downvoted = true; // Toggle the flag
-            }
+            // Increment downvote count and update UI
+            post.downvotes++; // Increment downvote count for this post
+             // Update UI to display the updated downvote count
+             $(this).find('.downvote-count').remove();
+             $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
+            console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
+        
         });
         
         postElement.append(upvoteButton);
