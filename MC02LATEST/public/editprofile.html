@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="editprofile.css">
+    <script src="http://localhost:3000/editprofileScript.js"></script>
 </head>
 <body>
     <div class="banner">
@@ -19,7 +20,7 @@
         <form id="profileForm" action="MainPage.html">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="TEST USER" readonly>
+                <span id="usernameSpan"></span>
             </div>
             <div class="form-group">
                 <label for="profilePicture">Profile Picture:</label>
@@ -27,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4">This is my profile description.</textarea>
+                <textarea id="description" name="description" rows="4"></textarea>
             </div>
             <button type="submit">Save Changes</button>
         </form>
