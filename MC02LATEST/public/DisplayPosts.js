@@ -175,7 +175,7 @@ function displayPosts(posts) {
       var editButton = $('<button class="edit"><span class="material-symbols-outlined">edit Post</span></button>');
       editButton.click(function() {
           console.log('Edit clicked for post:', post.title);
-          editPost(post.id);
+          
       });
     
       var postElement = $('<div class="post"></div>');
