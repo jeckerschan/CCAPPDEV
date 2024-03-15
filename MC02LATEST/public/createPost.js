@@ -55,7 +55,7 @@ function savePostData(postData) {
     .then(response => {
         if (response.ok) {
             console.log('Post saved successfully');
-            window.location.href = 'MainPage.html'; // Redirect to MainPage.html after successful submission
+            window.location.href = 'MainPage.html'; 
         } else {
             throw new Error('Error saving post');
         }
@@ -79,7 +79,10 @@ function fetchPosts() {
 
 // Function to display posts on the MainPage.html
 function displayPosts(posts) {
-    var postList = $('#post-list'); // Assuming there's a container with id 'post-list' on MainPage.html
+
+    var postList = $('#post-list'); 
+
+    postList.empty();
 
     posts.forEach(post => {
         var postElement = $('<div class="post"></div>');
@@ -88,23 +91,49 @@ function displayPosts(posts) {
         postElement.append('<label>Tags:</label>');
         postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>');
         postElement.append('<div class="actions">');
-        postElement.append('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
-        postElement.append('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
-        postElement.append('</div>');
+
+        post.upvotes = 0;
+        var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+        upvoteButton.click(function() {
+            // Increment upvote count and update UI
+            post.upvotes++; // Increment upvote count for this post
+            localStorage.setItem('upvotes_' + post.id, post.upvotes); // Save upvotes count to localStorage
+            // Update UI to display the updated upvote count
+            $(this).find('.upvote-count').remove();
+            $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
+            console.log('Upvote clicked for post:', post.title, 'Upvotes:', post.upvotes);
+        });
+
+        post.downvotes = 0;
+        var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+        downvoteButton.click(function() {
+            post.downvotes ++;
+            localStorage.setItem('downvotes_' + post.id, post.downvotes);
+            $(this).find('.downvote-count').remove();
+            $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
+            console.log('Downvote clicked for post:', post.title);
+        });
         
+        postElement.append(upvoteButton);
+        postElement.append(downvoteButton);
+        postElement.append('</div>');
+
         postElement.append('<div class="comments">');
         postElement.find('.comments').append('<h4>Comments</h4>');
-        // Creating a div to encapsulate the buttons
-        var buttonsDiv = $('<div>');
-        buttonsDiv.append('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
-        buttonsDiv.append('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
-        buttonsDiv.append('<button class="reply"><span class="material-symbols-outlined">reply</span></button>');
-        // Appending the buttons div to the comments container
-        postElement.find('.comments').append(buttonsDiv);
+        var replyButton = $('<button class="reply"><span class="material-symbols-outlined">reply</span></button>');
+        replyButton.click(function() {
+            // Handle reply button click event
+            console.log('Reply clicked for post:', post.title);
+        });
+        postElement.find('.comments').append(replyButton);
         postElement.append('</div>');
-        
-        postElement.append('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>')
-        // Add more content as needed
+
+        var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
+        commentButton.click(function() {
+            // Handle comment button click event
+            console.log('Comment clicked for post:', post.title);
+        });
+        postElement.append(commentButton);
 
         postList.append(postElement);
     });
