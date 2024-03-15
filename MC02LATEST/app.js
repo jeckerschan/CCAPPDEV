@@ -36,6 +36,10 @@ app.get('/sampleAccounts', (req, res) => {
   res.json(sampleAccounts);
 });
 
+app.get('/tempAccounts', (req, res) => {
+  res.json(tempAccounts);
+});
+
 app.post('/removeTempAccount', (req, res) => {
   tempAccounts = []; 
   console.log('All session accounts removed');
