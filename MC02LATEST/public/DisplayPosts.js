@@ -171,7 +171,12 @@ function displayPosts(posts) {
   postList.empty();
 
   posts.forEach(post => {
-    
+
+      var editButton = $('<button class="edit"><span class="material-symbols-outlined">edit Post</span></button>');
+      editButton.click(function() {
+          console.log('Edit clicked for post:', post.title);
+          editPost(post.id);
+      });
     
       var postElement = $('<div class="post"></div>');
       postElement.append('<h3>' + post.title + '</h3>');
@@ -179,6 +184,8 @@ function displayPosts(posts) {
       postElement.append('<label>Tags:</label>');
       postElement.append('<a href="Post.html"><button>' + post.tags.join(', ') + '</button></a>');
       postElement.append('<div class="actions">');
+
+      
 
       var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
       var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
