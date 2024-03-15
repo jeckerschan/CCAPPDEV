@@ -19,10 +19,6 @@ let posts = []; // Array to store posts
 // Concatenate the samplePosts array into the posts array
 posts = posts.concat(samplePosts);
 
-// Ensure each post has a unique ID
-posts.forEach((post, index) => {
-    post.id = index + 1; // Assigning a simple incremental ID for each post
-});
 console.log(posts); // Output the resulting array of posts
 
 
@@ -61,7 +57,7 @@ app.post('/savePost', (req, res) => {
   let post = { id, title, description, tags, upvotes, downvotes };
   post.upvotes = 0;
   post.downvotes = 0;
-  post.id = posts.length + 1;
+  post.id = posts.length;
   posts.push(post);
   console.log('Post saved:', post);
   res.sendStatus(200);
