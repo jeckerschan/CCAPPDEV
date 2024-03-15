@@ -197,7 +197,10 @@ function displayPosts(posts) {
 
         postElement.append('<div class="comments">');
         postElement.find('.comments').append('<h4>Comments</h4>');
-        postElement.find('.comments').append('<p>' + post.comments + '</p>');
+        post.comments.forEach(comment => {
+            var commentElement = $('<p></p>').text(comment);
+            postElement.find('.comments').append(commentElement);
+        });
 
         var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
         commentButton.click(function() {
