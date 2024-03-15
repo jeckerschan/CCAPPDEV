@@ -7,7 +7,7 @@ function Post (id, title, description, tags, upvotes, downvotes) {
     this.downvotes = downvotes;
 }
 
-const samplePosts = [
+let samplePosts = [
 
     new Post (0, 'Sinigang', 'Sinigang is a delicious delicacy which originated in the Philippines', ['CCS', 'CLA'], 0, 0),
     new Post (1, 'Adobo', 'I love adobo', ['GCOE', 'COS'], 0, 0),

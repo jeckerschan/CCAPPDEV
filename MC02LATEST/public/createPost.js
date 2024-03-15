@@ -121,6 +121,7 @@ function displayPosts(posts) {
 
         postElement.append('<div class="comments">');
         postElement.find('.comments').append('<h4>Comments</h4>');
+
         var replyButton = $('<button class="reply"><span class="material-symbols-outlined">reply</span></button>');
         replyButton.click(function() {
             // Handle reply button click event
@@ -133,6 +134,21 @@ function displayPosts(posts) {
         commentButton.click(function() {
             // Handle comment button click event
             console.log('Comment clicked for post:', post.title);
+            
+            // Create the comment form elements
+            var commentForm = $('<form class="comment-form"></form>');
+            var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
+            var submitButton = $('<button type="submit">Submit</button>');
+            
+            // Append the form elements to the comment form
+            commentForm.append(commentTextArea);
+            commentForm.append(submitButton);
+            
+            // Append the comment form to the post element or any desired container
+            $(this).closest('.post').append(commentForm);
+            
+            // Optionally, you can hide the comment button after the comment form is displayed
+            $(this).hide();
         });
         postElement.append(commentButton);
 
