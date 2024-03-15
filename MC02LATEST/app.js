@@ -53,11 +53,12 @@ app.post('/addAccount', (req, res) => {
 
 // Route to save post
 app.post('/savePost', (req, res) => {
-  let { id, title, description, tags, upvotes , downvotes } = req.body;
-  let post = { id, title, description, tags, upvotes, downvotes };
+  let { id, title, description, tags, upvotes , downvotes, comments } = req.body;
+  let post = { id, title, description, tags, upvotes, downvotes, comments };
   post.upvotes = 0;
   post.downvotes = 0;
   post.id = posts.length;
+  post.comments = [];
   posts.push(post);
   console.log('Post saved:', post);
   res.sendStatus(200);
@@ -65,6 +66,32 @@ app.post('/savePost', (req, res) => {
 
 app.get('/posts', (req, res) => {
   res.json(posts);
+});
+
+// route to update number of upvotes
+app.post('/updateUpvote', (req, res) => {
+  const postId = req.body.postId; // Assuming the client sends the entire post object in the request body
+  
+  posts[postId].upvotes++;
+  res.json({ success: true, message: 'Upvote count updated successfully' });
+
+});
+
+// route to update number of downvotes
+app.post('/updateDownvote', (req, res) => {
+  const postId = req.body.postId; // Assuming the client sends the entire post object in the request body
+  
+  posts[postId].downvotes++;
+  res.json({ success: true, message: 'Downvote count updated successfully' });
+
+});
+
+app.post('/updateComment', (req, res) => {
+  const { postId, comment } = req.body;
+
+  posts[postId].comments.push(comment);
+  res.json({ success: true, message: 'Comment added successfully' });
+
 });
 
 app.listen(3000, () => {
