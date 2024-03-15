@@ -53,11 +53,12 @@ app.post('/addAccount', (req, res) => {
 
 // Route to save post
 app.post('/savePost', (req, res) => {
-  let { id, title, description, tags, upvotes , downvotes } = req.body;
-  let post = { id, title, description, tags, upvotes, downvotes };
+  let { id, title, description, tags, upvotes , downvotes, comments } = req.body;
+  let post = { id, title, description, tags, upvotes, downvotes, comments };
   post.upvotes = 0;
   post.downvotes = 0;
   post.id = posts.length;
+  post.comments = [];
   posts.push(post);
   console.log('Post saved:', post);
   res.sendStatus(200);
@@ -82,6 +83,14 @@ app.post('/updateDownvote', (req, res) => {
   
   posts[postId].downvotes++;
   res.json({ success: true, message: 'Downvote count updated successfully' });
+
+});
+
+app.post('/updateComment', (req, res) => {
+  const { postId, comment } = req.body;
+
+  posts[postId].comments.push(comment);
+  res.json({ success: true, message: 'Comment added successfully' });
 
 });
 

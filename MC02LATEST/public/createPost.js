@@ -77,6 +77,11 @@ function fetchPosts() {
     });
 }
 
+function fetchAccount(){
+    fetch('http://localhost:3000/sampleAccounts')
+    .then(response => response.json())
+}
+
 //function to save upvotes to server
 function saveUpvote(postId) {
     fetch(`http://localhost:3000/updateUpvote`, {
@@ -118,9 +123,24 @@ function saveDownvote(postId) {
     });
 }
 
-function fetchAccount(){
-    fetch('http://localhost:3000/sampleAccounts')
-    .then(response => response.json())
+function saveComment(postId, comment) {
+    fetch('http://localhost:3000/updateComment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId, comment })
+    })
+    .then(response=> {
+        if (response.ok) {
+            console.log('Comment updated');
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error('Error updating comments:', error);
+        alert('Failed to update comment on the server');
+    });
 }
 
 // Function to display posts on the MainPage.html
@@ -174,14 +194,6 @@ function displayPosts(posts) {
         postElement.append('<div class="comments">');
         postElement.find('.comments').append('<h4>Comments</h4>');
 
-        var replyButton = $('<button class="reply"><span class="material-symbols-outlined">reply</span></button>');
-        replyButton.click(function() {
-            // Handle reply button click event
-            console.log('Reply clicked for post:', post.title);
-        });
-        postElement.find('.comments').append(replyButton);
-        postElement.append('</div>');
-
         var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
         commentButton.click(function() {
             
@@ -191,6 +203,16 @@ function displayPosts(posts) {
             var commentForm = $('<form class="comment-form"></form>');
             var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
             var submitButton = $('<button type="submit">Submit</button>');
+
+            //submit button functionality
+            submitButton.click(function() {
+
+                var commentText = commentTextArea.val();
+                fetchAccount(); //get account of current session user
+                saveComment(post.id, commentText);
+                $(this).find('.comments').append('<p>' + commentText + '</p>');
+
+            });
             
             // Append the form elements to the comment form
             commentForm.append(commentTextArea);
