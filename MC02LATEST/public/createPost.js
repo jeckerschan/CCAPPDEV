@@ -118,6 +118,11 @@ function saveDownvote(postId) {
     });
 }
 
+function fetchAccount(){
+    fetch('http://localhost:3000/sampleAccounts')
+    .then(response => response.json())
+}
+
 // Function to display posts on the MainPage.html
 function displayPosts(posts) {
 
