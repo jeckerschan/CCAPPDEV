@@ -211,6 +211,13 @@ button {
     color:rgb(16, 30, 153)
 }
 
+.upvoted {
+    color: #22da12;
+}
+
+.downvoted {
+    color: red;
+}
 
 .Tags{
     float:right;

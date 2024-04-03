@@ -75,18 +75,18 @@ app.get('/posts', (req, res) => {
 
 // route to update number of upvotes
 app.post('/updateUpvote', (req, res) => {
-  const postId = req.body.postId;
+  let { postId, upvotes } = req.body;
   
-  posts[postId].upvotes++;
+  posts[postId].upvotes = upvotes;
   res.json({ success: true, message: 'Upvote count updated successfully' });
 
 });
 
 // route to update number of downvotes
 app.post('/updateDownvote', (req, res) => {
-  const postId = req.body.postId; 
+  let { postId, downvotes } = req.body; 
   
-  posts[postId].downvotes++;
+  posts[postId].downvotes = downvotes;
   res.json({ success: true, message: 'Downvote count updated successfully' });
 
 });

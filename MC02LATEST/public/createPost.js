@@ -83,13 +83,13 @@ function fetchAccount(){
 }
 
 //function to save upvotes to server
-function saveUpvote(postId) {
+function saveUpvote(postId, upvotes) {
     fetch(`http://localhost:3000/updateUpvote`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ postId })
+        body: JSON.stringify({ postId, upvotes })
     })
     .then(response => {
         if (response.ok) {
@@ -103,13 +103,13 @@ function saveUpvote(postId) {
     });
 }
 
-function saveDownvote(postId) {
+function saveDownvote(postId, downvotes) {
     fetch(`http://localhost:3000/updateDownvote`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ postId })
+        body: JSON.stringify({ postId , downvotes})
     })
     .then(response => {
         if (response.ok) {
@@ -167,27 +167,47 @@ function displayPosts(posts) {
         upvoteButton.append(upvoteCountSpan); 
 
         upvoteButton.click(function() {
-            // Increment upvote count and update UI
-            post.upvotes++; // Increment upvote count for this post
+            // Toggle upvote
+            if ($(this).hasClass('upvoted')) {
+                // Remove upvote
+                post.upvotes--; // Decrement upvote count for this post
+                $(this).removeClass('upvoted');
+            } 
+            else {
+                // Add upvote
+                post.upvotes++; // Increment upvote count for this post
+                $(this).addClass('upvoted');
+            }
+            
+            // Update UI
             $(this).find('.upvote-count').remove();
             $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
             console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
-            saveUpvote(post.id);
             
-        });        
+            // Save upvote
+            saveUpvote(post.id, post.upvotes);
+        });
+            
 
         var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
         var downvoteCountSpan = $('<span class="downvote-count">' + post.downvotes + '</span>'); 
         downvoteButton.append(downvoteCountSpan); 
         
         downvoteButton.click(function() {
-            // Increment downvote count and update UI
-            post.downvotes++; // Increment downvote count for this post
-             // Update UI to display the updated downvote count
-             $(this).find('.downvote-count').remove();
-             $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
+
+            if ($(this).hasClass('downvoted')) {
+                post.downvotes--;
+                $(this).removeClass('downvoted');
+            }
+            else {
+                post.downvotes++;
+                $(this).addClass('downvoted');
+            }
+
+            $(this).find('.downvote-count').remove();
+            $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
             console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
-            saveDownvote(post.id);
+            saveDownvote(post.id, post.downvotes);
         
         });
         
@@ -225,7 +245,7 @@ function displayPosts(posts) {
                         commentWithUsername = username + ': ' + commentText; 
                         var commentElement = $('<p></p>').text(commentWithUsername);
                         $(this).closest('.post').find('.comments').append(commentElement); 
-                        return saveComment(post.id, commentText); 
+                        return saveComment(post.id, commentWithUsername); 
                     })
                     .then(response => {
                         console.log('Comment added:', commentWithUsername); 
