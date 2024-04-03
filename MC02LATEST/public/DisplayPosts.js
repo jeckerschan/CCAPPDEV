@@ -150,124 +150,259 @@ function saveComment(postId, comment) {
 // Function to display posts on the MainPage.html
 function displayPosts(posts) {
 
-    var postList = $('#post'); 
+    var postList = $('#post-list'); 
 
     postList.empty();
+    
+    fetchAccount()
+    .then(tempAccounts => {
 
-    posts.forEach(post => {
-        var postElement = $('<div class="post"></div>');
-        postElement.append('<h3>' + post.title + '</h3>');
-        postElement.append('<p>' + post.description + '</p>');
-        postElement.append('<label>Tags: </label>');
-        postElement.append('<span style ="font-size: 14">' + post.tags.join(', ') + '</span>');
-        postElement.append('<div class="actions">');
+        var accountID = tempAccounts[0].accountID; 
+        console.log('Account ID is: ' + accountID);
 
-        var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
-        var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
-        upvoteButton.append(upvoteCountSpan); 
-
-        upvoteButton.click(function() {
-            // Toggle upvote
-            if ($(this).hasClass('upvoted')) {
-                // Remove upvote
-                post.upvotes--; // Decrement upvote count for this post
-                $(this).removeClass('upvoted');
-            } 
-            else {
-                // Add upvote
-                post.upvotes++; // Increment upvote count for this post
-                $(this).addClass('upvoted');
-            }
-            
-            // Update UI
-            $(this).find('.upvote-count').remove();
-            $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
-            console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
-            
-            // Save upvote
-            saveUpvote(post.id, post.upvotes);
-        });
-            
-
-        var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
-        var downvoteCountSpan = $('<span class="downvote-count">' + post.downvotes + '</span>'); 
-        downvoteButton.append(downvoteCountSpan); 
-        
-        downvoteButton.click(function() {
-
-            if ($(this).hasClass('downvoted')) {
-                post.downvotes--;
-                $(this).removeClass('downvoted');
-            }
-            else {
-                post.downvotes++;
-                $(this).addClass('downvoted');
-            }
-
-            $(this).find('.downvote-count').remove();
-            $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
-            console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
-            saveDownvote(post.id, post.downvotes);
-        
-        });
-        
-        postElement.append(upvoteButton);
-        postElement.append(downvoteButton);
-        postElement.append('</div>');
-
-        postElement.append('<div class="comments">');
-        postElement.find('.comments').append('<h4>Comments</h4>');
-        post.comments.forEach(comment => {
-            var commentElement = $('<p></p>').text(comment);
-            postElement.find('.comments').append(commentElement);
-        });
-
-        var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
-        commentButton.click(function() {
-            
-            console.log('Comment clicked for post:', post.title);
-            
-            // Create the comment form elements
-            var commentForm = $('<form class="comment-form"></form>');
-            var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
-            var submitButton = $('<button type="submit">Submit</button>');
-
-            //submit comment functionality
-            submitButton.click(function(event) {
-                event.preventDefault();
-                var commentText = commentTextArea.val();
+        posts.forEach(post => {
+            if (post.accountID === accountID) {
+                console.log('post ID is: ' + post.accountID);
+                var postElement = $('<div class="post"></div>');
+                postElement.append('<h3>' + post.title + '</h3>');
+                postElement.append('<p>' + post.description + '</p>');
+                postElement.append('<label>Tags: </label>');
+                postElement.append('<span style ="font-size: 14">' + post.tags.join(', ') + '</span>');
+                postElement.append('<div class="actions">');
+    
+                var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+                var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
+                upvoteButton.append(upvoteCountSpan); 
+    
+                upvoteButton.click(function() {
+                    // Toggle upvote
+                    if ($(this).hasClass('upvoted')) {
+                        // Remove upvote
+                        post.upvotes--; // Decrement upvote count for this post
+                        $(this).removeClass('upvoted');
+                    } 
+                    else {
+                        // Add upvote
+                        post.upvotes++; // Increment upvote count for this post
+                        $(this).addClass('upvoted');
+                    }
+                    
+                    // Update UI
+                    $(this).find('.upvote-count').remove();
+                    $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
+                    console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
+                    
+                    // Save upvote
+                    saveUpvote(post.id, post.upvotes);
+                });
+                    
+    
+                var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+                var downvoteCountSpan = $('<span class="downvote-count">' + post.downvotes + '</span>'); 
+                downvoteButton.append(downvoteCountSpan); 
                 
-                var commentWithUsername; // Declare variable to hold comment with username
-            
-                fetchAccount()
-                    .then(tempAccounts => {
-                        var username = tempAccounts[0].username; 
-                        commentWithUsername = username + ': ' + commentText; 
-                        var commentElement = $('<p></p>').text(commentWithUsername);
-                        $(this).closest('.post').find('.comments').append(commentElement); 
-                        return saveComment(post.id, commentWithUsername); 
-                    })
-                    .then(response => {
-                        console.log('Comment added:', commentWithUsername); 
-                    })
-                    .catch(error => {
-                        console.error('Error adding comment:', error);
-                        alert('Failed to add comment.');
+                downvoteButton.click(function() {
+    
+                    if ($(this).hasClass('downvoted')) {
+                        post.downvotes--;
+                        $(this).removeClass('downvoted');
+                    }
+                    else {
+                        post.downvotes++;
+                        $(this).addClass('downvoted');
+                    }
+    
+                    $(this).find('.downvote-count').remove();
+                    $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
+                    console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
+                    saveDownvote(post.id, post.downvotes);
+                
+                });
+                
+                postElement.append(upvoteButton);
+                postElement.append(downvoteButton);
+                postElement.append('</div>');
+    
+                postElement.append('<div class="comments">');
+                postElement.find('.comments').append('<h4>Comments</h4>');
+                post.comments.forEach(comment => {
+                    var commentElement = $('<p></p>').text(comment);
+                    postElement.find('.comments').append(commentElement);
+                });
+    
+                var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
+                commentButton.click(function() {
+                    
+                    console.log('Comment clicked for post:', post.title);
+                    
+                    // Create the comment form elements
+                    var commentForm = $('<form class="comment-form"></form>');
+                    var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
+                    var submitButton = $('<button type="submit">Submit</button>');
+    
+                    //submit comment functionality
+                    submitButton.click(function(event) {
+                        event.preventDefault();
+                        var commentText = commentTextArea.val();
+                        
+                        var commentWithUsername; // Declare variable to hold comment with username
+                    
+                        fetchAccount()
+                            .then(tempAccounts => {
+                                var username = tempAccounts[0].username; 
+                                commentWithUsername = username + ': ' + commentText; 
+                                var commentElement = $('<p></p>').text(commentWithUsername);
+                                $(this).closest('.post').find('.comments').append(commentElement); 
+                                return saveComment(post.id, commentWithUsername); 
+                            })
+                            .then(response => {
+                                console.log('Comment added:', commentWithUsername); 
+                            })
+                            .catch(error => {
+                                console.error('Error adding comment:', error);
+                                alert('Failed to add comment.');
+                            });
                     });
+    
+                    commentForm.append(commentTextArea);
+                    commentForm.append(submitButton);
+                    
+                    $(this).closest('.post').append(commentForm);
+                    
+                    $(this).hide();
+                });
+    
+                postElement.append(commentButton);
+                postList.append(postElement);
+            }
+
+        });
+    })
+    .catch(error => {
+        console.error('Error getting account ID', error);
+        alert('Failed to get account ID');
+    });
+
+    
+    /*
+    posts.forEach(post => {
+        
+        if (post.id === accountID) {
+            console.log('post ID is: ' + post.id);
+            var postElement = $('<div class="post"></div>');
+            postElement.append('<h3>' + post.title + '</h3>');
+            postElement.append('<p>' + post.description + '</p>');
+            postElement.append('<label>Tags: </label>');
+            postElement.append('<span style ="font-size: 14">' + post.tags.join(', ') + '</span>');
+            postElement.append('<div class="actions">');
+
+            var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
+            var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
+            upvoteButton.append(upvoteCountSpan); 
+
+            upvoteButton.click(function() {
+                // Toggle upvote
+                if ($(this).hasClass('upvoted')) {
+                    // Remove upvote
+                    post.upvotes--; // Decrement upvote count for this post
+                    $(this).removeClass('upvoted');
+                } 
+                else {
+                    // Add upvote
+                    post.upvotes++; // Increment upvote count for this post
+                    $(this).addClass('upvoted');
+                }
+                
+                // Update UI
+                $(this).find('.upvote-count').remove();
+                $(this).find('.material-symbols-outlined').after('<span class="upvote-count">' + post.upvotes + '</span>');
+                console.log('Upvote added for post:', post.title, 'Upvotes:', post.upvotes);
+                
+                // Save upvote
+                saveUpvote(post.id, post.upvotes);
+            });
+                
+
+            var downvoteButton = $('<button class="downvote"><span class="material-symbols-outlined">heart_minus</span></button>');
+            var downvoteCountSpan = $('<span class="downvote-count">' + post.downvotes + '</span>'); 
+            downvoteButton.append(downvoteCountSpan); 
+            
+            downvoteButton.click(function() {
+
+                if ($(this).hasClass('downvoted')) {
+                    post.downvotes--;
+                    $(this).removeClass('downvoted');
+                }
+                else {
+                    post.downvotes++;
+                    $(this).addClass('downvoted');
+                }
+
+                $(this).find('.downvote-count').remove();
+                $(this).find('.material-symbols-outlined').after('<span class="downvote-count">' + post.downvotes + '</span>');
+                console.log('Downvote added for post:', post.title, 'Downvotes:', post.downvotes);
+                saveDownvote(post.id, post.downvotes);
+            
+            });
+            
+            postElement.append(upvoteButton);
+            postElement.append(downvoteButton);
+            postElement.append('</div>');
+
+            postElement.append('<div class="comments">');
+            postElement.find('.comments').append('<h4>Comments</h4>');
+            post.comments.forEach(comment => {
+                var commentElement = $('<p></p>').text(comment);
+                postElement.find('.comments').append(commentElement);
             });
 
-            commentForm.append(commentTextArea);
-            commentForm.append(submitButton);
-            
-            $(this).closest('.post').append(commentForm);
-            
-            $(this).hide();
-        });
+            var commentButton = $('<button class="comment"><span class="material-symbols-outlined">add_comment</span></button>');
+            commentButton.click(function() {
+                
+                console.log('Comment clicked for post:', post.title);
+                
+                // Create the comment form elements
+                var commentForm = $('<form class="comment-form"></form>');
+                var commentTextArea = $('<textarea placeholder="Write your comment..."></textarea>');
+                var submitButton = $('<button type="submit">Submit</button>');
 
-        postElement.append(commentButton);
-        postList.append(postElement);
+                //submit comment functionality
+                submitButton.click(function(event) {
+                    event.preventDefault();
+                    var commentText = commentTextArea.val();
+                    
+                    var commentWithUsername; // Declare variable to hold comment with username
+                
+                    fetchAccount()
+                        .then(tempAccounts => {
+                            var username = tempAccounts[0].username; 
+                            commentWithUsername = username + ': ' + commentText; 
+                            var commentElement = $('<p></p>').text(commentWithUsername);
+                            $(this).closest('.post').find('.comments').append(commentElement); 
+                            return saveComment(post.id, commentWithUsername); 
+                        })
+                        .then(response => {
+                            console.log('Comment added:', commentWithUsername); 
+                        })
+                        .catch(error => {
+                            console.error('Error adding comment:', error);
+                            alert('Failed to add comment.');
+                        });
+                });
 
-    });
+                commentForm.append(commentTextArea);
+                commentForm.append(submitButton);
+                
+                $(this).closest('.post').append(commentForm);
+                
+                $(this).hide();
+            });
+
+            postElement.append(commentButton);
+            postList.append(postElement);
+        }
+
+    }); */
 }
 
 // Call fetchPosts when MainPage.html is loaded
