@@ -92,7 +92,8 @@ label {
     margin-bottom: 30px;
 }
 
-button {
+.tag-btn {
+
     display:inline;
     padding: 10px;
     background-color: #35b73e;
@@ -100,4 +101,13 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    
+}
+
+button:hover {
+    background-color: #125912;
+}
+
+.tag-btn.active {
+    background-color: #125912; /* Change the background color when the button is active */
 }
