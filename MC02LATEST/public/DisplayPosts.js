@@ -1,3 +1,48 @@
+$(document).ready(function() {
+    // Toggle tag button active state
+    $('.tag-btn').click(function(event) {
+        event.preventDefault(); // Prevent the default behavior of the tag button
+        $(this).toggleClass('active');
+    });
+
+    // Handle form submission
+    $('#post-form').submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Extract form data
+        var title = $('#title').val();
+        var description = $('#description').val();
+        var tags = getSelectedTags();
+
+        // Validate form fields
+        if (!isValidForm(title, description, tags)) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Send data to server
+        var postData = {
+            title: title,
+            description: description,
+            tags: tags,
+        };
+
+        savePostData(postData);
+    });
+});
+
+// Function to get selected tags
+function getSelectedTags() {
+    return $('.tag-btn.active').map(function() {
+        return $(this).val();
+    }).get();
+}
+
+// Function to validate form fields
+function isValidForm(title, description, tags) {
+    return title.trim() !== '' && description.trim() !== '';
+}
+
 // Function to save post data
 function savePostData(postData) {
     fetch('http://localhost:3000/savePost', {
@@ -39,7 +84,7 @@ function fetchAccount(){
 
 //function to save upvotes to server
 function saveUpvote(postId, upvotes) {
-    fetch(`http://localhost:3000/updateUpvote`, {
+    fetch('http://localhost:3000/updateUpvote', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -59,7 +104,7 @@ function saveUpvote(postId, upvotes) {
 }
 
 function saveDownvote(postId, downvotes) {
-    fetch(`http://localhost:3000/updateDownvote`, {
+    fetch('http://localhost:3000/updateDownvote', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -105,7 +150,7 @@ function saveComment(postId, comment) {
 // Function to display posts on the MainPage.html
 function displayPosts(posts) {
 
-    var postList = $('#post-list'); 
+    var postList = $('#post'); 
 
     postList.empty();
 
@@ -229,5 +274,3 @@ function displayPosts(posts) {
 $(document).ready(function() {
     fetchPosts();
 });
-
-
