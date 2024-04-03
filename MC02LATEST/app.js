@@ -25,9 +25,9 @@ console.log(posts);
 
 
 app.post('/saveTempAccount', (req, res) => {
-  const { username, password } = req.body;
-  tempAccounts.push({ username, password });
-  console.log('Saved temporary account:', { username, password });
+  const { username, password, accountID } = req.body;
+  tempAccounts.push({ username, password, accountID });
+  console.log('Saved temporary account:', { username, password, accountID });
   res.status(200).send('Temporary account saved successfully.');
 });
 

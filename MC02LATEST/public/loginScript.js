@@ -17,16 +17,18 @@ function validateLogin(username, password) {
         .then(sampleAccounts => {
             // Validate login using fetched sampleAccounts
             const tempAccount = createTempAccount(username, password);
-            return sampleAccounts.some(account => account.username === tempAccount.username && account.password === tempAccount.password);
-        })
-        .then(isValid => {
-            if (isValid) {
-                // If login is valid, save temporary account
-                saveTempAccount(username, password);
+            const matchedAccount = sampleAccounts.find(account => account.username === tempAccount.username && account.password === tempAccount.password);
+            if (matchedAccount) {
+                // If login is valid, save temporary account along with its accountID
+                saveTempAccount(username, password, matchedAccount.accountID);
             } else {
                 alert('Invalid username or password. Please try again.');
             }
         })
+        .catch(error => {
+            console.error('Error fetching sampleAccounts:', error);
+            alert('An error occurred while fetching sampleAccounts. Please try again later.');
+        });
 }
 
 
@@ -35,23 +37,16 @@ function handleFormSubmit(event) {
     const username = event.target.elements.username.value;
     const password = event.target.elements.password.value;
  
-
-  
-    if (validateLogin(username, password)) {
-
-        saveTempAccount(username, password);
-        //window.location.href = 'MainPage.html';
-        //saveTempAccount(username, password);
-    }
-
+    validateLogin(username, password);
    
 }
 
-function saveTempAccount(username, password) {
+function saveTempAccount(username, password, accountID) {
     // Create the data object to send to the server
     const data = {
         username,
-        password
+        password,
+        accountID
     };
 
     // Make a POST request to save the temporary account
