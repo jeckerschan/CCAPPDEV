@@ -6,14 +6,19 @@ const client = new MongoClient(mongoURl);
 function connectToMongo() {
     return new Promise((resolve, reject) => {
         client.connect().then((connectedClient) => {
-            console.log("Connected to MongoDB server");
+           
             resolve(connectedClient.db());
+            //console.log("Connected to MongoDB server");
         }).catch(err => {
             console.error("Failed to connect to MongoDB:", err);
             reject(err);
         });
     });
 }
+
+client.connect().then(() => {
+    console.log("Connected to MongoDB server");
+})
 
 function getDb(dbName = "MCo3") {
     return client.db(dbName);

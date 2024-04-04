@@ -34,7 +34,7 @@ if (err) {
 }
 
 
-console.log("connected to MongoDB server")
+//console.log("connected to MongoDB server")
 initializeCollections();
 const db = getDb();
 starterCollections(db);
