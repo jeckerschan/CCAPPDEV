@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
@@ -40,22 +41,34 @@ createCollections(db);
 
 })
 
+
 async function createCollections(db) {
   try {
+    
     const collections = await db.listCollections().toArray();
 
+    
     const accountsCollectionExists = collections.some(collection => collection.name === 'accounts');
     const postsCollectionExists = collections.some(collection => collection.name === 'posts');
 
     if (!accountsCollectionExists) {
+      
       const accountsCollection = db.collection('accounts');
-      await accountsCollection.insertMany(sampleAccounts);
+
+      
+      const hashedSampleAccounts = await Promise.all(sampleAccounts.map(async account => {
+        const hashedPassword = await bcrypt.hash(account.password, 14); 
+        return { ...account, password: hashedPassword };
+      }));
+
+      await accountsCollection.insertMany(hashedSampleAccounts);
       console.log("Sample accounts inserted successfully");
     } else {
       console.log("Collection 'accounts' already exists, skipping insertion");
     }
 
     if (!postsCollectionExists) {
+      
       const postsCollection = db.collection('posts');
       await postsCollection.insertMany(samplePosts);
       console.log("Sample posts inserted successfully");
@@ -68,6 +81,7 @@ async function createCollections(db) {
     throw err;
   }
 }
+
 
 
 app.get('/sampleAccounts', (req, res) => {
