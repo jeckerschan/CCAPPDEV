@@ -3,11 +3,15 @@ const { MongoClient } = require('mongodb');
 const mongoURl = "mongodb://localhost:27017";
 const client = new MongoClient(mongoURl);
 
-function connectToMongo(callback) {
-    client.connect().then((client) => {
-        return callback();
-    }).catch(err => {
-        callback(err);
+function connectToMongo() {
+    return new Promise((resolve, reject) => {
+        client.connect().then((connectedClient) => {
+            console.log("Connected to MongoDB server");
+            resolve(connectedClient.db());
+        }).catch(err => {
+            console.error("Failed to connect to MongoDB:", err);
+            reject(err);
+        });
     });
 }
 
@@ -30,10 +34,9 @@ const dbPromise = connectToMongo();
 const accountsCollectionPromise = dbPromise.then(db => db.collection('accounts'));
 const postsCollectionPromise = dbPromise.then(db => db.collection('posts'));
 
-
 module.exports = {
     connectToMongo,
     getDb,
-    accountsCollection: accountsCollectionPromise,
-    postsCollection: postsCollectionPromise
+    accountsCollectionPromise,
+    postsCollectionPromise
 };

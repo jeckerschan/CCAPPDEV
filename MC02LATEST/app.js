@@ -35,7 +35,7 @@ if (err) {
 
 
 console.log("connected to MongoDB server")
-
+initializeCollections();
 const db = getDb();
 starterCollections(db);
 
@@ -82,7 +82,18 @@ async function starterCollections(db) {
   }
 }
 
+async function initializeCollections() {
+  try {
+    const db = await getDb(); 
+    await starterCollections(db); 
+  } catch (err) {
+    console.error("Error initializing collections:", err);
+    process.exit(1); 
+  }
+}
 
+
+initializeCollections();
 
 app.get('/sampleAccounts', (req, res) => {
   res.json(sampleAccounts);
