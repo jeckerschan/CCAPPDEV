@@ -20,14 +20,27 @@ $(document).ready(function() {
             return;
         }
 
-        // Send data to server
-        var postData = {
-            title: title,
-            description: description,
-            tags: tags,
-        };
+        fetchAccount()
+        .then(tempAccounts => {
+            var accountID = tempAccounts[0].accountID; 
+            // Send data to server
+            var postData = {
+                title: title,
+                description: description,
+                tags: tags,
+                accountID: accountID
+            };
 
-        savePostData(postData);
+            savePostData(postData);
+        })
+        .then(response => {
+            console.log('Post added, account ID: '); 
+        })
+        .catch(error => {
+            console.error('Failed to add post', error);
+            alert('Failed to add post');
+        });
+
     });
 });
 

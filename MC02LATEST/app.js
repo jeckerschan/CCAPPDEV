@@ -58,8 +58,8 @@ app.post('/addAccount', (req, res) => {
 
 // Route to save post
 app.post('/savePost', (req, res) => {
-  let { id, title, description, tags, upvotes , downvotes, comments } = req.body;
-  let post = { id, title, description, tags, upvotes, downvotes, comments };
+  let { id, title, description, tags, upvotes , downvotes, comments, accountID } = req.body;
+  let post = { id, title, description, tags, upvotes, downvotes, comments, accountID };
   post.upvotes = 0;
   post.downvotes = 0;
   post.id = posts.length;
