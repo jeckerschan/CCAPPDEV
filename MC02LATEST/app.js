@@ -1,14 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json()); 
 
-
+const { connectToMongo, getDb } = require('./db/conn.js');
 const { Account } = require('./public/accountConst');
 const { sampleAccounts } = require('./public/accountConst');
 const { samplePosts } = require('./public/postConst');
@@ -23,6 +24,21 @@ posts = posts.concat(samplePosts);
 
 console.log(posts);
 
+
+connectToMongo((err) =>{
+if (err) {
+  console.log("error occured:");
+  console.error(err);
+  process.exit();
+}
+
+
+console.log("connected to MongoDB server")
+
+const db = getDb();
+
+
+})
 
 app.post('/saveTempAccount', (req, res) => {
   const { username, password, accountID } = req.body;
