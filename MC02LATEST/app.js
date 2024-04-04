@@ -102,15 +102,7 @@ app.get('/sampleAccounts', (req, res) => {
 app.get('/tempAccounts', (req, res) => {
   res.json(tempAccounts);
 });
-app.post('/saveTempAccount', (req, res) => {
-  const { username, password } = req.body;
 
-  
-  tempAccounts.push({ username, password });
-
-  console.log('Temporary account saved:', { username, password });
-  res.status(200).send('Temporary account saved successfully.');
-});
 
 app.post('/removeTempAccount', (req, res) => {
   tempAccounts = []; 
