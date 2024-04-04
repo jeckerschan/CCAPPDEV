@@ -37,12 +37,12 @@ if (err) {
 console.log("connected to MongoDB server")
 
 const db = getDb();
-createCollections(db);
+starterCollections(db);
 
 })
 
 
-async function createCollections(db) {
+async function starterCollections(db) {
   try {
     
     const collections = await db.listCollections().toArray();
