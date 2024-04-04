@@ -119,18 +119,31 @@ app.post('/removeTempAccount', (req, res) => {
 });
 
 // Route to add account
-app.post('/addAccount', (req, res) => {
+app.post('/addAccount', async (req, res) => {
   const { username, password } = req.body;
-  const newAccount = new Account(username, password); 
-  sampleAccounts.push(newAccount);
-  console.log('New account added:', newAccount.username);
-  console.log('Password:', newAccount.password);
-  res.sendStatus(200);
+  const accountID = generateAccountID(); // Generate accountID
 
+  try {
+      const hashedPassword = await bcrypt.hash(password, 14); // Hash the password
+      const db = await getDb(); // Get the database object
+      const result = await db.collection('accounts').insertOne({ username, password: hashedPassword, accountID });
+   
+      sampleAccounts.push(new Account(username, hashedPassword, accountID));
+      console.log('New account added:', { username, password: hashedPassword, accountID });
+      res.sendStatus(200);
+  } catch (err) {
+      console.error('Error adding account:', err);
+      res.status(500).send('Failed to add account');
+  }
 });
 
 
-
+let nextAccountID = 6; // Starting accountID
+function generateAccountID() {
+    const accountID = nextAccountID.toString().padStart(4, '0');
+    nextAccountID++;
+    return accountID;
+}
 // Route to save post
 app.post('/savePost', (req, res) => {
   let { id, title, description, tags, upvotes , downvotes, comments, accountID } = req.body;
@@ -206,3 +219,42 @@ app.get('/', (req, res) => {
 app.get('/sampleAccounts', (req, res) => {
   res.json(sampleAccounts);
 });
+// Route handler for validateLogin endpoint
+app.post('/validateLogin', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+      // Hash the password entered by the user
+      const hashedPassword = await bcrypt.hash(password, 14);
+
+      // Authenticate the login credentials
+      const isAuthenticated = await authenticateLogin(username, hashedPassword);
+
+      if (isAuthenticated) {
+          // Login successful
+          res.status(200).json({ message: "Login successful" });
+      } else {
+          // Login failed
+          res.status(401).json({ message: "Invalid username or password" });
+      }
+  } catch (error) {
+      // Internal server error
+      console.error("Error handling login request:", error);
+      res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+async function authenticateLogin(username, hashedPassword) {
+  try {
+      const accountsCollection = await accountsCollectionPromise;
+
+      // Find the account with the given username and hashed password
+      const account = await accountsCollection.findOne({ username, password: hashedPassword });
+
+      // If the account exists, login successful
+      return !!account;
+  } catch (error) {
+      console.error("Error authenticating login:", error);
+      throw error;
+  }
+}
