@@ -42,26 +42,32 @@ createCollections(db);
 
 async function createCollections(db) {
   try {
-    // Create collection for sampleAccounts and insert sample data
-    const accountsCollection = db.collection('accounts');
-    await accountsCollection.insertMany(sampleAccounts);
-    console.log("Sample accounts inserted successfully");
+    const collections = await db.listCollections().toArray();
 
-    // Create collection for samplePosts and insert sample data
-    const postsCollection = db.collection('posts');
-    await postsCollection.insertMany(samplePosts);
-    console.log("Sample posts inserted successfully");
+    const accountsCollectionExists = collections.some(collection => collection.name === 'accounts');
+    const postsCollectionExists = collections.some(collection => collection.name === 'posts');
+
+    if (!accountsCollectionExists) {
+      const accountsCollection = db.collection('accounts');
+      await accountsCollection.insertMany(sampleAccounts);
+      console.log("Sample accounts inserted successfully");
+    } else {
+      console.log("Collection 'accounts' already exists, skipping insertion");
+    }
+
+    if (!postsCollectionExists) {
+      const postsCollection = db.collection('posts');
+      await postsCollection.insertMany(samplePosts);
+      console.log("Sample posts inserted successfully");
+    } else {
+      console.log("Collection 'posts' already exists, skipping insertion");
+    }
+
   } catch (err) {
     console.error("Failed to create collections or insert sample data:", err);
     throw err;
   }
 }
-app.post('/saveTempAccount', (req, res) => {
-  const { username, password, accountID } = req.body;
-  tempAccounts.push({ username, password, accountID });
-  console.log('Saved temporary account:', { username, password, accountID });
-  res.status(200).send('Temporary account saved successfully.');
-});
 
 
 app.get('/sampleAccounts', (req, res) => {
