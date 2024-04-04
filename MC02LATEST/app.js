@@ -36,10 +36,26 @@ if (err) {
 console.log("connected to MongoDB server")
 
 const db = getDb();
-
+createCollections(db);
 
 })
 
+async function createCollections(db) {
+  try {
+    // Create collection for sampleAccounts and insert sample data
+    const accountsCollection = db.collection('accounts');
+    await accountsCollection.insertMany(sampleAccounts);
+    console.log("Sample accounts inserted successfully");
+
+    // Create collection for samplePosts and insert sample data
+    const postsCollection = db.collection('posts');
+    await postsCollection.insertMany(samplePosts);
+    console.log("Sample posts inserted successfully");
+  } catch (err) {
+    console.error("Failed to create collections or insert sample data:", err);
+    throw err;
+  }
+}
 app.post('/saveTempAccount', (req, res) => {
   const { username, password, accountID } = req.body;
   tempAccounts.push({ username, password, accountID });
