@@ -169,6 +169,7 @@ function displayPosts(posts) {
                 postElement.append('<label>Tags: </label>');
                 postElement.append('<span style ="font-size: 14">' + post.tags.join(', ') + '</span>');
                 postElement.append('<div class="actions">');
+
     
                 var upvoteButton = $('<button class="upvote"><span class="material-symbols-outlined">heart_plus</span></button>');
                 var upvoteCountSpan = $('<span class="upvote-count">' + post.upvotes + '</span>'); 
