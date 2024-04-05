@@ -144,7 +144,19 @@ app.post('/addAccount', async (req, res) => {
       res.status(500).send('Failed to add account');
   }
 });
+app.post('/saveTempAccount', (req, res) => {
+  const { username, password, accountID } = req.body;
 
+  console.log('Received data:', { username, password, accountID });
+  // Assuming tempAccounts is an array defined in the global scope
+  tempAccounts.push({ username, password, accountID });
+
+  // Log the saved temporary account
+  console.log('Temporary account saved successfully:', { username, password, accountID });
+
+  // Send a success response
+  res.sendStatus(200);
+});
 
 let nextAccountID = 6; // Starting accountID
 function generateAccountID() {
@@ -230,13 +242,12 @@ app.get('/sampleAccounts', (req, res) => {
 // Route handler for validateLogin endpoint
 app.post('/validateLogin', async (req, res) => {
   const { username, password } = req.body;
-
+  console.log('Received request body:', req.body); 
   try {
       // Hash the password entered by the user
-      const hashedPassword = await bcrypt.hash(password, 14);
-
+     
       // Authenticate the login credentials
-      const isAuthenticated = await authenticateLogin(username, hashedPassword);
+      const isAuthenticated = await authenticateLogin(username, password, db);
 
       if (isAuthenticated) {
           // Login successful
@@ -252,15 +263,23 @@ app.post('/validateLogin', async (req, res) => {
   }
 });
 
-async function authenticateLogin(username, hashedPassword) {
+async function authenticateLogin(username, password, db) {
   try {
-      const accountsCollection = await accountsCollectionPromise;
+      console.log('Received username:', username); // Log received username
+      console.log('Received password:', password); // Log received password
 
-      // Find the account with the given username and hashed password
-      const account = await accountsCollection.findOne({ username, password: hashedPassword });
+     // const accountsCollection = await accountsCollectionPromise;
 
-      // If the account exists, login successful
-      return !!account;
+      // Find the account with the given username
+      const account = await db.collection('accounts').findOne({ username });
+      console.log('Found account - Username:', account.username, 'Account ID:', account.accountID);
+      if (account) {
+        const isPasswordMatch = await bcrypt.compare(password, account.password);
+        return isPasswordMatch;
+      } else {
+        console.error("Account not found");
+        return false;
+      }
   } catch (error) {
       console.error("Error authenticating login:", error);
       throw error;
