@@ -185,7 +185,7 @@ async function generateAccountID() {
 }
 
 // Route to save post
-app.post('/savePost', (req, res) => {
+app.post('/savePost', async (req, res) => {
   let { id, title, description, tags, upvotes , downvotes, comments, accountID } = req.body;
   let post = { id, title, description, tags, upvotes, downvotes, comments, accountID };
   post.upvotes = 0;
@@ -194,7 +194,18 @@ app.post('/savePost', (req, res) => {
   post.comments = [];
   posts.push(post);
   console.log('Post saved:', post);
-  res.sendStatus(200);
+  
+
+  try {
+    const db = await getDb();
+    await db.collection('posts').insertOne(post);
+
+    console.log('Post saved:', post);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error saving post:', error);
+    res.status(500).json({ success: false, message: 'Failed to save post' });
+  }
 });
 
 app.get('/posts', (req, res) => {
