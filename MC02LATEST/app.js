@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.static('public'));
 app.use(bodyParser.json()); 
 
-const { connectToMongo, getDb, accountsCollectionPromise, postsCollectionPromise } = require('./db/conn.js');
+const { connectToMongo, getDb} = require('./db/conn.js');
 const { Account } = require('./public/accountConst');
 const { sampleAccounts } = require('./public/accountConst');
 const { samplePosts } = require('./public/postConst');
