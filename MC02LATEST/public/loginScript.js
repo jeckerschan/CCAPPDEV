@@ -9,8 +9,24 @@ function validateLogin(username, password) {
     })
     .then(response => {
         if (response.ok) {
-            // If the login is successful, redirect to MainPage.html
-            window.location.href = 'MainPage.html';
+            // If the login is successful, fetch the sample accounts
+            fetch('http://localhost:3000/sampleAccounts')
+                .then(response => response.json())
+                .then(sampleAccounts => {
+                    // Find the account that matches the provided username
+                    const matchedAccount = sampleAccounts.find(account => account.username === username);
+                    if (matchedAccount) {
+                        // If a matching account is found, save it as a temporary account
+                        saveTempAccount(matchedAccount.username, matchedAccount.password, matchedAccount.accountID);
+                    } else {
+                        // If no matching account is found, display an error message
+                        alert('An error occurred while retrieving account information. Please try again later.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching sampleAccounts:', error);
+                    alert('An error occurred while fetching account information. Please try again later.');
+                });
         } else {
             // If the login fails, display an error message
             alert('Invalid username or password. Please try again.');
@@ -43,10 +59,10 @@ function saveTempAccount(username, password, accountID) {
     .then(response => {
         if (response.ok) {
             // If the account was saved successfully, add it to the tempAccounts array
-            tempAccounts.push({ username, password });
+            tempAccounts.push({ username, password, accountID });
             console.log('Temporary account saved successfully:', { username, password });
             // Redirect to MainPage.html
-            window.location.href = 'MainPage.html';
+           window.location.href = 'MainPage.html';
         } else {
             // If there was an error, throw an error and handle it in the catch block
             throw new Error('Error saving temporary account');

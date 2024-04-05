@@ -46,11 +46,27 @@ async function starterCollections(db) {
   try {
     
     const collections = await db.listCollections().toArray();
-
+    //const { username, password } = account;
     
     const accountsCollectionExists = collections.some(collection => collection.name === 'accounts');
     const postsCollectionExists = collections.some(collection => collection.name === 'posts');
 
+    if (accountsCollectionExists) {
+      const accountsCollection = db.collection('accounts');
+      const accounts = await accountsCollection.find({}).toArray();
+
+      sampleAccounts.length = 0; // Clear existing sampleAccounts array
+      accounts.forEach(account => {
+       
+        sampleAccounts.push(new Account(account.username, account.password, account.accountID));
+        console.log(`Username: ${account.username}, ID: ${account.accountID}`);
+      });
+
+      console.log("Sample accounts updated successfully");
+      
+    } else {
+      console.log("Collection 'accounts' does not exist, skipping population of sampleAccounts");
+    }
     if (!accountsCollectionExists) {
       
       const accountsCollection = db.collection('accounts');
