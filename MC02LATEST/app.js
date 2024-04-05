@@ -83,6 +83,18 @@ async function starterCollections(db) {
       console.log("Collection 'accounts' already exists, skipping insertion");
     }
 
+    if (postsCollectionExists) {
+      const postsCollection = db.collection('posts');
+      const posts = await postsCollection.find({}).toArray();
+
+      samplePosts.length = 0; 
+      posts.forEach(post => {
+        samplePosts.push(new Post(post.id, post.title, post.description, post.tags, post.upvotes, post.downvotes, post.comments, post.accountID));
+        console.log(`Post ID: ${post.id}, Title: ${post.title}, Comments: ${post.comments}`);
+      });
+
+      console.log("Sample posts updated successfully");
+    }
     if (!postsCollectionExists) {
       
       const postsCollection = db.collection('posts');
@@ -209,7 +221,7 @@ app.post('/savePost', async (req, res) => {
 });
 
 app.get('/posts', (req, res) => {
-  res.json(posts);
+  res.json(samplePosts);
 });
 
 // route to update number of upvotes
