@@ -202,28 +202,68 @@ app.get('/posts', (req, res) => {
 });
 
 // route to update number of upvotes
-app.post('/updateUpvote', (req, res) => {
+app.post('/updateUpvote', async (req, res) => {
   let { postId, upvotes } = req.body;
   
   posts[postId].upvotes = upvotes;
-  res.json({ success: true, message: 'Upvote count updated successfully' });
+
+  try {
+    const db = await getDb();
+    await db.collection('posts').updateOne(
+      { id: postId },
+      { $set: { upvotes: upvotes } }
+    );
+    
+    res.json({ success: true, message: 'Upvote count updated successfully' });
+  } catch (error) {
+    console.error('Error updating upvote count:', error);
+    res.status(500).json({ success: false, message: 'Failed to update upvote count' });
+  }
+ 
 
 });
 
 // route to update number of downvotes
-app.post('/updateDownvote', (req, res) => {
+app.post('/updateDownvote', async (req, res) => {
   let { postId, downvotes } = req.body; 
   
   posts[postId].downvotes = downvotes;
-  res.json({ success: true, message: 'Downvote count updated successfully' });
+  try {
+    const db = await getDb();
+    await db.collection('posts').updateOne(
+      { id: postId },
+      { $set: { downvotes: downvotes } }
+    );
+    
+    res.json({ success: true, message: 'Downvote count updated successfully' });
+  } catch (error) {
+    console.error('Error updating downvote count:', error);
+    res.status(500).json({ success: false, message: 'Failed to update downvote count' });
+  }
+
+
+ 
 
 });
 
-app.post('/updateComment', (req, res) => {
+app.post('/updateComment', async (req, res) => {
   const { postId, comment } = req.body;
 
   posts[postId].comments.push(comment);
-  res.json({ success: true, message: 'Comment added successfully: ' + posts[postId].comments });
+
+  try {
+    const db = await getDb();
+    await db.collection('posts').updateOne(
+      { id: postId },
+      { $push: { comments: comment } }
+    );
+
+    res.json({ success: true, message: 'Comment added successfully' });
+  } catch (error) {
+    console.error('Error updating comment:', error);
+    res.status(500).json({ success: false, message: 'Failed to update comment' });
+  }
+  
 
 });
 
