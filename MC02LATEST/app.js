@@ -244,20 +244,20 @@ app.post('/validateLogin', async (req, res) => {
   const { username, password } = req.body;
   console.log('Received request body:', req.body); 
   try {
-      // Hash the password entered by the user
      
-      // Authenticate the login credentials
+      const db = await getDb();
+   
       const isAuthenticated = await authenticateLogin(username, password, db);
 
       if (isAuthenticated) {
-          // Login successful
+        
           res.status(200).json({ message: "Login successful" });
       } else {
           // Login failed
           res.status(401).json({ message: "Invalid username or password" });
       }
   } catch (error) {
-      // Internal server error
+      
       console.error("Error handling login request:", error);
       res.status(500).json({ message: "Internal server error" });
   }
@@ -265,12 +265,11 @@ app.post('/validateLogin', async (req, res) => {
 
 async function authenticateLogin(username, password, db) {
   try {
-      console.log('Received username:', username); // Log received username
-      console.log('Received password:', password); // Log received password
+      console.log('Received username:', username); 
+      console.log('Received password:', password); 
+     
 
-     // const accountsCollection = await accountsCollectionPromise;
-
-      // Find the account with the given username
+      
       const account = await db.collection('accounts').findOne({ username });
       console.log('Found account - Username:', account.username, 'Account ID:', account.accountID);
       if (account) {
