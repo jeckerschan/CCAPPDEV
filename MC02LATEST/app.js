@@ -34,7 +34,7 @@ if (err) {
 }
 
 
-//console.log("connected to MongoDB server")
+
 initializeCollections();
 const db = getDb();
 starterCollections(db);
@@ -46,7 +46,7 @@ async function starterCollections(db) {
   try {
     
     const collections = await db.listCollections().toArray();
-    //const { username, password } = account;
+   
     
     const accountsCollectionExists = collections.some(collection => collection.name === 'accounts');
     const postsCollectionExists = collections.some(collection => collection.name === 'posts');
@@ -55,7 +55,7 @@ async function starterCollections(db) {
       const accountsCollection = db.collection('accounts');
       const accounts = await accountsCollection.find({}).toArray();
 
-      sampleAccounts.length = 0; // Clear existing sampleAccounts array
+      sampleAccounts.length = 0; 
       accounts.forEach(account => {
        
         sampleAccounts.push(new Account(account.username, account.password, account.accountID));
@@ -129,11 +129,11 @@ app.post('/removeTempAccount', (req, res) => {
 // Route to add account
 app.post('/addAccount', async (req, res) => {
   const { username, password } = req.body;
-  const accountID = generateAccountID(); // Generate accountID
+  const accountID =  await generateAccountID(); 
 
   try {
-      const hashedPassword = await bcrypt.hash(password, 14); // Hash the password
-      const db = await getDb(); // Get the database object
+      const hashedPassword = await bcrypt.hash(password, 14); 
+      const db = await getDb(); 
       const result = await db.collection('accounts').insertOne({ username, password: hashedPassword, accountID });
    
       sampleAccounts.push(new Account(username, hashedPassword, accountID));
@@ -148,22 +148,42 @@ app.post('/saveTempAccount', (req, res) => {
   const { username, password, accountID } = req.body;
 
   console.log('Received data:', { username, password, accountID });
-  // Assuming tempAccounts is an array defined in the global scope
+  
   tempAccounts.push({ username, password, accountID });
 
-  // Log the saved temporary account
+  
   console.log('Temporary account saved successfully:', { username, password, accountID });
 
-  // Send a success response
+  
   res.sendStatus(200);
 });
 
-let nextAccountID = 6; // Starting accountID
-function generateAccountID() {
-    const accountID = nextAccountID.toString().padStart(4, '0');
-    nextAccountID++;
-    return accountID;
+async function generateAccountID() {
+  try {
+      const db = await getDb();
+      const accountsCollection = db.collection('accounts');
+
+    
+      const highestAccount = await accountsCollection.find().sort({ accountID: -1 }).limit(1).toArray();
+
+      if (highestAccount.length === 0) {
+         
+          return '0001';
+      } else {
+          
+          const highestAccountID = parseInt(highestAccount[0].accountID);
+          const nextAccountID = highestAccountID + 1;
+
+          
+          const paddedAccountID = nextAccountID.toString().padStart(4, '0');
+          return paddedAccountID;
+      }
+  } catch (error) {
+      console.error('Error generating account ID:', error);
+      throw error;
+  }
 }
+
 // Route to save post
 app.post('/savePost', (req, res) => {
   let { id, title, description, tags, upvotes , downvotes, comments, accountID } = req.body;

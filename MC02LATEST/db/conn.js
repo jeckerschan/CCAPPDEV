@@ -34,14 +34,9 @@ process.on('SIGINT', signalHandler);
 process.on('SIGTERM', signalHandler);
 process.on('SIGQUIT', signalHandler);
 
-const dbPromise = connectToMongo();
-
-const accountsCollectionPromise = dbPromise.then(db => db.collection('accounts'));
-const postsCollectionPromise = dbPromise.then(db => db.collection('posts'));
 
 module.exports = {
     connectToMongo,
     getDb,
-    accountsCollectionPromise,
-    postsCollectionPromise
+   
 };
